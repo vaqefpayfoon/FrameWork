@@ -1,0 +1,389 @@
+﻿@{
+    Layout = null;
+    var BaseEntities = new List<string>
+{
+nameof(Entities.Principle),
+nameof(Entities.ProjectTarget),
+nameof(Entities.ProjectType),
+nameof(Entities.ResistancePolicy),
+nameof(Entities.CompanyType),
+nameof(Entities.ProjectDetail),
+nameof(Entities.IndexData),
+nameof(Entities.ApprovalRefrence),
+nameof(Entities.SystemRoles),
+nameof(Entities.RolesActionAssignment),
+nameof(Entities.Domain),
+nameof(Entities.DomainUser),
+};
+}
+
+@inject IEntityService entityService
+
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager
+
+@{
+    var modules = await entityService.GetListOfUserAccessibleModules(User.Identity.Name);
+}
+
+
+<aside class="left-sidebar bg-sidebar">
+    <div id="sidebar" class="sidebar sidebar-with-footer">
+        <!-- Aplication Brand -->
+        <div class="app-brand">
+            <a href="/Home">
+                <svg class="brand-icon"
+                     xmlns="http://www.w3.org/2000/svg"
+                     preserveAspectRatio="xMidYMid"
+                     width="30"
+                     height="33"
+                     viewBox="0 0 30 33">
+                    <g fill="none" fill-rule="evenodd">
+                        <path class="logo-fill-blue"
+                              fill="#7DBCFF"
+                              d="M0 4v25l8 4V0zM22 4v25l8 4V0z" />
+                        <path class="logo-fill-white" fill="#FFF" d="M11 4v25l8 4V0z" />
+                    </g>
+                </svg>
+                <span class="brand-name">Kavosh</span>
+            </a>
+        </div>
+        <!-- begin sidebar scrollbar -->
+        <div class="sidebar-scrollbar">
+            <ul class="nav sidebar-inner" id="sidebar-menu">
+                @foreach (var group in modules.GroupBy(x => x.ParentTitle))
+                {
+
+                    @foreach (var module in group)
+                    {
+
+                        @if (!module.ListOnly)
+                        {
+                            <li class="has-sub">
+                                <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#@module.EntityName"
+                                   aria-expanded="false" aria-controls="@module.EntityName">
+                                    <i class="mdi mdi-folder-multiple-outline"></i>
+                                    <span class="nav-text"> @group.Key</span> <b class="caret"></b>
+                                </a>
+                                <ul class="collapse" id="@module.EntityName">
+                                    <div class="sub-menu">
+                                        @if ((module.SystemAction & SystemAction.Read) != 0)
+                                        {
+                                            <li>
+                                                <a href="/@module.EntityName">
+                                                    <i class="fas fa-file-alt"></i>
+                                                    لیست @module.Title
+                                                </a>
+                                            </li>
+                                        }
+                                        @if (!module.ListOnly && ((module.SystemAction & SystemAction.Create) != 0))
+                                        {
+                                            <li>
+                                                <a href="/@module.EntityName/Create">
+                                                    <i class="fas fa-file-alt"></i>
+                                                    درج @module.Title
+                                                </a>
+                                            </li>
+                                        }
+                                    </div>
+                                </ul>
+                            </li>
+                        }
+
+                    }
+                }
+                @if (modules.Where(woak => woak.ListOnly).Count() > 0)
+                {
+                    <li class="has-sub">
+                        <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#BaseInfo"
+                           aria-expanded="false" aria-controls="BaseInfo">
+                            <i class="mdi mdi-folder-multiple-outline"></i>
+                            <span class="nav-text">اطلاعات پایه</span> <b class="caret"></b>
+                        </a>
+                        <ul class="collapse" id="BaseInfo">
+                            <div class="sub-menu">
+
+
+                                @foreach (var group in modules.Where(woak => woak.ListOnly))
+                                {
+                                    <li>
+                                        <a href="/@group.EntityName">
+                                            <i class="fas fa-file-alt"></i>
+                                            @*لیست*@ @group.Title
+                                        </a>
+                                    </li>
+                                }
+                            </div>
+                        </ul>
+                    </li>
+                }
+
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="has-sub">
+                        <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#ui-elements"
+                           aria-expanded="false" aria-controls="ui-elements">
+                            <i class="mdi mdi-folder-multiple-outline"></i>
+                            <span class="nav-text">سطح دسترسی</span> <b class="caret"></b>
+                        </a>
+                        <ul class="collapse" id="ui-elements"
+                            data-parent="#sidebar-menu">
+                            <div class="sub-menu">
+                                <li class="has-sub">
+                                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#components"
+                                       aria-expanded="false" aria-controls="components">
+                                        <span class="nav-text">ماژول ها</span> <b class="caret"></b>
+                                    </a>
+                                    <ul class="collapse" id="components">
+                                        <div class="sub-menu">
+
+                                            <li>
+                                                <a href="/SystemForm">
+                                                    <i class="fas fa-file-alt"></i>
+                                                    لیست ماژول‌ها
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/SystemForm/Create">
+                                                    <i class="fas fa-pen-nib"></i>
+                                                    درج ماژول‌
+                                                </a>
+                                            </li>
+
+                                        </div>
+                                    </ul>
+                                </li>
+
+                                <li class="has-sub">
+                                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#icons"
+                                       aria-expanded="false" aria-controls="icons">
+                                        <span class="nav-text">دسترسی‌ها</span> <b class="caret"></b>
+                                    </a>
+                                    <ul class="collapse" id="icons">
+                                        <div class="sub-menu">
+                                            <li>
+                                                <a href="/RoleFormActionAssignment">
+                                                    <i class="fas fa-file-alt"></i>
+                                                    لیست دسترسی‌ها
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/RoleFormActionAssignment/Create">
+                                                    <i class="fas fa-pen-nib"></i>
+                                                    درج دسترسی‌
+                                                </a>
+                                            </li>
+
+                                        </div>
+                                    </ul>
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
+
+                    <li class="has-sub">
+                        <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#charts"
+                           aria-expanded="false" aria-controls="#charts">
+                            <i class="mdi mdi-folder-multiple-outline"></i>
+                            <span class="nav-text">مدیریت کاربران</span> <b class="caret"></b>
+                        </a>
+                        <ul class="collapse" id="charts"
+                            data-parent="#sidebar-menu">
+                            <div class="sub-menu">
+                                <li class="has-sub">
+                                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#users"
+                                       aria-expanded="false" aria-controls="users">
+                                        <span class="nav-text">کاربران</span> <b class="caret"></b>
+                                    </a>
+                                    <ul class="collapse" id="users">
+                                        <div class="sub-menu">
+
+                                            <li>
+                                                <a href="/ApplicationUser">
+                                                    <i class="fas fa-file-alt"></i>
+                                                    لیست @Entities.ApplicationUser ها
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="/ApplicationUser/Create">
+                                                    <i class="fas fa-pen-nib"></i>
+                                                    درج @Entities.ApplicationUser
+                                                </a>
+                                            </li>
+
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li class="has-sub">
+                                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#domain"
+                                       aria-expanded="false" aria-controls="domain">
+                                        <span class="nav-text">کاربران دامین</span> <b class="caret"></b>
+                                    </a>
+                                    <ul class="collapse" id="domain">
+                                        <div class="sub-menu">
+                                            <li>
+                                                <a href="/AddDomainUser/Create">
+                                                    <i class="fas fa-pen-nib"></i>
+                                                    درج @Entities.DomainUser
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li class="has-sub">
+                                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#domains"
+                                       aria-expanded="false" aria-controls="domains">
+                                        <span class="nav-text">دامین</span> <b class="caret"></b>
+                                    </a>
+                                    <ul class="collapse" id="domains">
+                                        <div class="sub-menu">
+                                            <li>
+                                                <a href="/DomainSetting">
+                                                    <i class="fas fa-file-alt"></i>
+                                                    لیست @Entities.Domain ها
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/DomainSetting/Create" class="dropdown-toggle">
+                                                    درج @(Entities.Domain)
+                                                    <b class="arrow fa fa-angle-down"></b><b class="arrow fa fa-angle-left"></b>
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li class="has-sub">
+                                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#roles"
+                                       aria-expanded="false" aria-controls="roles">
+                                        <span class="nav-text">نقش ها</span> <b class="caret"></b>
+                                    </a>
+                                    <ul class="collapse" id="roles">
+                                        <div class="sub-menu">
+                                            <li>
+                                                <a href="/ApplicationRole">
+                                                    <i class="fas fa-file-alt"></i>
+                                                    مدیریت نقش ها
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="has-sub">
+                        <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#logs"
+                           aria-expanded="false" aria-controls="#logs">
+                            <i class="mdi mdi-folder-multiple-outline"></i>
+                            <span class="nav-text">مدیریت خطاهای سیستمی</span> <b class="caret"></b>
+                        </a>
+                        <ul class="collapse" id="logs"
+                            data-parent="#sidebar-menu">
+                            <div class="sub-menu">
+                                <li class="has-sub">
+                                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#logsystem"
+                                       aria-expanded="false" aria-controls="logsystem">
+                                        <span class="nav-text">خطاهای سیستمی</span> <b class="caret"></b>
+                                    </a>
+                                    <ul class="collapse" id="logsystem">
+                                        <div class="sub-menu">
+                                            <li>
+                                                <a href="/Logs">
+                                                    لیست لاگ
+                                                </a>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
+                }
+                <li class="has-sub">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#changePassword"
+                       aria-expanded="false" aria-controls="#changePassword">
+                        <i class="mdi mdi-folder-multiple-outline"></i>
+                        <span class="nav-text">مدیریت رمز عبور</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse" id="changePassword"
+                        data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="has-sub">
+                                <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#Password"
+                                   aria-expanded="false" aria-controls="Password">
+                                    <span class="nav-text">تغییر رمز عبور</span> <b class="caret"></b>
+                                </a>
+                                <ul class="collapse" id="Password">
+                                    <div class="sub-menu">
+                                        <li>
+                                            <a href="/ApplicationUser/ChangePassword">
+                                                تغییر رمز عبور
+                                            </a>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+
+                <li class="has-sub">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#fileManager"
+                       aria-expanded="false" aria-controls="#fileManager">
+                        <i class="mdi mdi-folder-multiple-outline"></i>
+                        <span class="nav-text">مدیریت فایل ها</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse" id="fileManager"
+                        data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="has-sub">
+                                <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#file"
+                                   aria-expanded="false" aria-controls="file">
+                                    <span class="nav-text">مدیریت فایل</span> <b class="caret"></b>
+                                </a>
+                                <ul class="collapse" id="file">
+                                    <div class="sub-menu">
+                                        <li>
+                                            <a href="/FileManagerData/Index">
+                                                مدیریت فایل
+                                            </a>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+
+            </ul>
+            </div>
+            </div>
+
+            <hr class="separator" />
+
+            <div class="sidebar-footer">
+                <div class="sidebar-footer-content">
+                    <h6 class="text-uppercase">
+                        Cpu Uses <span class="float-right">40%</span>
+                    </h6>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar active"
+                             style="width: 40%;"
+                             role="progressbar"></div>
+                    </div>
+                    <h6 class="text-uppercase">
+                        Memory Uses <span class="float-right">65%</span>
+                    </h6>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar progress-bar-warning"
+                             style="width: 65%;"
+                             role="progressbar"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+
+

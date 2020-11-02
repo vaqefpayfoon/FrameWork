@@ -1,0 +1,99 @@
+﻿@model IEnumerable<CompanyExtraordinaryMeetingViewModel>
+
+@{
+    var entity = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var title = Entities.ResourceManager.GetString(entity);
+    ViewData["Title"] = title;
+}
+
+@section breadcrumbs{
+    @await Component.InvokeAsync("BreadCrumb", new
+    {
+        args = new AdminBreadCrumbArgsViewModel
+        {
+            EntityTitle = title,
+            Controller = entity,
+            PageType = AdminPageType.Create
+        }
+    })
+}
+
+
+
+<div class="k-rtl">
+
+    @(Html.Kendo().Grid(Model)
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(m => m.Id)
+        .ClientTemplate("#= renderNumber() #")
+        .Title("ردیف").Sortable(false).Width(100);
+        columns.Bound(p => p.CompanyTitle).Title("نام شرکت");
+        if (User.IsInRole("Admin"))
+        {
+            columns.Bound(p => p.Id).ClientTemplate("<a href='./" + entity + "/Edit/#:Id#'><i class='k-icon k-i-edit'></i></a>&nbsp;&nbsp;&nbsp;<a onclick='return confirm(\"آیا از حذف این مورد اطمینان دارید؟\")' href='./" + entity + "/Delete/#:Id#'><i class='k-icon k-i-delete'></i></a>").HeaderHtmlAttributes(new { @class = "custom-action-button" }).Title("عملیات").Sortable(false);
+        }
+        else
+        {
+            columns.Bound(p => p.Id).ClientTemplate(@RenderManangementColumn("#=Id#")).Title("عملیات").IncludeInMenu(false);
+        }
+    })
+    .ToolBar(toolbar =>
+    {
+        toolbar.Search();
+        toolbar.Excel().Text("خروجی اکسل");
+    })
+    .Pdf(pdf => pdf
+           .AllPages()
+           .Landscape()
+           .PaperSize("A4")
+           .Scale(0.75)
+        ).Excel(excel => excel
+        .FileName("CompanyExtraordinaryMeeting.xlsx")
+        .AllPages())
+        .Pageable()
+        .Sortable()
+        .Filterable()
+        .Navigatable()
+        .Reorderable(reorderable => reorderable.Columns(true))
+        .ColumnMenu()
+        .Scrollable(s=>s.Virtual(GridVirtualizationMode.Columns).Height("auto"))
+        .DataSource(dataSource => dataSource
+        .WebApi()
+        .ServerOperation(false)
+        .Model(model =>
+        {
+            model.Id(p => p.Id);
+        })
+        .Events(events => events.Error("error_handler"))
+        .Destroy(destroy => destroy.Action("DELETE", "CompanyExtraordinaryMeeting", new { id = "{0}" }))
+        )
+        )
+</div>
+@functions
+{
+    public string RenderManangementColumn(object id)
+    {
+        string edit = string.Empty, delete = string.Empty;
+
+        edit = $"<a href='./" + Url.ActionContext.RouteData.Values["controller"].ToString() + "/Edit/#:Id#'><i class='k-icon k-i-edit'></i></a>";
+
+        if ((((SystemAction)ViewBag.SystemAction) & SystemAction.Delete) != 0)
+        {
+            delete = $"<a onclick='return confirm(\"آیا از حذف این مورد اطمینان دارید؟\")' href='./" + Url.ActionContext.RouteData.Values["controller"].ToString() + "/Delete/#:Id#'><i class='k-icon k-i-delete'></i></a>";
+        }
+        return edit + delete;
+    }
+}
+<script type="text/javascript">
+
+    function error_handler(e) {
+        var errors = $.parseJSON(e.xhr.responseText);
+        if (errors) {
+            alert("Errors:\n" + errors.join("\n"));
+        }
+    }
+</script>
+
+

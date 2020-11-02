@@ -1,0 +1,156 @@
+﻿@model LoginViewModel
+@{
+
+    Layout = null;
+}
+<style>
+    .md-48 {
+        font-size: 48px !important;
+        color: #145af9 !important;
+       
+    }
+    #dntCaptchaImg {
+        margin-bottom: -10px !important;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ورود</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+
+    <link href="~/css/cc.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="~/material/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/siteLogin.css" rel="stylesheet" />
+    <link href="~/css/rtl.css" rel="stylesheet" />
+</head>
+<body class="r-rtl rtl" data-culture="fa">
+    <div class="preLoader">
+        <span class="spin"></span>
+    </div>
+
+    <div class="page-header">
+        <div class="page-header-bg">
+            <div class="bg">
+                @*<img src="~/assets/img/banner-image.jpg" alt="red dot" />*@
+               
+                <img src="~/assets/img/stock-photo-login-grey-screen-laptop-computer-vintage-effects-digital-business-and-technology-concept-491986153 (1).jpg" alt="red dot"/>
+            </div>
+        </div>
+        <div class="page-header-logo">
+            @*<img src="~/assets/img/logo.png" />*@
+            @*<img src="~/assets/img/kavoshlogo.jpg" />*@
+        </div>
+        <ul class="page-header-buttons">
+        </ul>
+    </div>
+    <div class="form">
+        @*<div class="form-title">ورود</div>*@
+        <div class="form-elements">
+            <div class="row">
+                <div class="col-sm-6">
+                    <form action="" method="post">
+                        @*<input type="hidden" id="ReturnUrl" name="ReturnUrl" value="/Manage" />*@
+
+
+                        <div class="r-input r-has-icon filled">
+                            <select style=" width: 400px;height: 35px;font-family: 'IRANSans';margin-right:35px;" class="popup-formitem" asp-for="DomainId">
+                                <option value="">انتخاب کنید</option>
+                                @await Component.InvokeAsync("SimpleDropDownList", new { entity = nameof(DomainSetting), id = Model?.DomainId })
+                                @*<span asp-validation-for="DomainId"></span>*@
+                            </select>
+                            <span class="alert alert-danger field-validation-valid" data-valmsg-for="DomainId" data-valmsg-replace="true"></span>
+                            <label>نحوه ورود</label>
+                            <span class="r-input-icon">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="#000000" d="M18,15H16V17H18M18,11H16V13H18M20,19H12V17H14V15H12V13H14V11H12V9H20M10,7H8V5H10M10,11H8V9H10M10,15H8V13H10M10,19H8V17H10M6,7H4V5H6M6,11H4V9H6M6,15H4V13H6M6,19H4V17H6M12,7V3H2V21H22V7H12Z"></path>
+                                </svg>
+                            </span>
+                        </div>
+
+                        <div class="r-input r-has-icon filled">
+                            <input asp-for="UserName" type="text" class="filled" tabindex="1010" data-val="true" id="Username" name="Username">
+                            <span class="alert alert-danger field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                            <label>نام کاربری</label>
+                            <span class="r-input-icon">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="#000000" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,6A2,2 0 0,0 10,8A2,2 0 0,0 12,10A2,2 0 0,0 14,8A2,2 0 0,0 12,6M12,13C14.67,13 20,14.33 20,17V20H4V17C4,14.33 9.33,13 12,13M12,14.9C9.03,14.9 5.9,16.36 5.9,17V18.1H18.1V17C18.1,16.36 14.97,14.9 12,14.9Z"></path>
+                                </svg>
+                            </span>
+                        </div>
+
+                        <div class="r-input r-has-icon filled">
+                            <input asp-for="Password" type="password" class="filled" tabindex="1015" data-val="true" id="Password" name="Password">
+                            <span class="alert alert-danger field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                            <label>کلمه عبور</label>
+                            <span class="r-input-icon"><svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#000000" d="M12,17C10.89,17 10,16.1 10,15C10,13.89 10.89,13 12,13A2,2 0 0,1 14,15A2,2 0 0,1 12,17M18,20V10H6V20H18M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V10C4,8.89 4.89,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"></path></svg></span>
+                        </div>
+                        <div class="r-input r-has-icon filled">
+                            <dnt-captcha asp-captcha-generator-max="100"
+                                         asp-captcha-generator-min="1"
+                                         asp-captcha-generator-language="English"
+                                         asp-captcha-generator-display-mode="SumOfTwoNumbers"
+                                         asp-use-relative-urls="true"
+                                         asp-placeholder="عبارت امنیتی"
+                                         asp-validation-error-message="لطفا عبارت امنیتی را درست وارد نمایید."
+                                         asp-font-name="Tahoma"
+                                         asp-font-size="60"
+                                         asp-fore-color="#145af9"
+                                         asp-back-color="#ccc"
+                                         asp-text-box-class="text-box single-line form-control col-md-12"
+                                         asp-text-box-template="<div class='r-input r-has-icon filled'><span class='input-group-addon'><span class='r-input-icon'></span></span>{0}</div>"
+                                         asp-validation-message-class="text-danger"
+                                         asp-refresh-button-class="mdi mdi-cached md-48"
+                                         asp-use-noise="false" />
+                        </div>
+                        <div class="col-md-12">
+                            <div class="d-flex my-2 justify-content-between">
+                                <div class="r-checkbox r-xs">
+                                    <label>
+                                        <input type="checkbox" tabindex="1030" data-val="true" data-val-required="The RememberLogin field is required." id="RememberLogin" name="RememberLogin" value="true">
+                                        <span class="r-checkbox-fake">
+                                            <span class="check"></span>
+                                        </span>
+                                        <span class="r-checkbox-text">ورود من را به یاد داشته باش</span>
+                                    </label>
+                                </div>
+                                @*<p><a class="text-blue" href="#">Forgot Your Password?</a></p>*@
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <button type="submit" name="button" value="login" id="loginButton" class="r-button r-ripple r-info" tabindex="1035">ورود</button>
+                                    <button class="r-button r-ripple r-danger" name="button" value="cancel">لغو</button>
+                                </div>
+                            </div>
+                            @*<button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Sign In</button>*@
+                            @*<p>
+                                    Don't have an account yet ?
+                                    <a class="text-blue" href="sign-up.html">Sign Up</a>
+                                </p>*@
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/bundle.min.js"></script>
+    <script src="~/assets/plugins/jquery/jquery.js"></script>
+    <script src="~/assets/js/scripts.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    $('#dntCaptchaRefreshButton').click(function () {
+
+        location.reload();
+    });
+</script>

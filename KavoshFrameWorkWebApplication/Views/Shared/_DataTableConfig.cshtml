@@ -1,0 +1,120 @@
+﻿@{
+    Layout = null;
+}
+
+
+<script>
+    var datatableFaLang = {
+        "decimal": "",
+        "emptyTable": "اطلاعاتی یافت نشد",
+        "info": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+        "infoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+        "infoFiltered": "(filtered from _MAX_ total entries)",
+        "infoPostFix": "",
+        "thousands": ",",
+        "lengthMenu": "نمایش _MENU_ رکورد",
+        "loadingRecords": "در حال بارگزاری ...",
+        "processing": "<i class=\"fa fa-spinner fa-spin fa-3x fa-fw\"></i><span class=\"sr-only\">در حال دریافت اطلاعات</span>",
+        "search": "جستجو:",
+        "zeroRecords": "No matching records found",
+        "paginate": {
+            "first": "اولین",
+            "last": "آخرین",
+            "next": "بعدی",
+            "previous": "قبلی"
+        },
+        "aria": {
+            "sortAscending": ": activate to sort column ascending",
+            "sortDescending": ": activate to sort column descending"
+        }
+    }
+</script>
+
+<script>
+    var dataTable;
+
+    function filterByStatus(value) {
+        var colIndex = $('#myTable thead tr').first().children().length - 2;
+        console.log(value, colIndex);
+
+        dataTable
+            .column(colIndex)
+            .search(value)
+            .draw();
+    }
+    $(document).ready(function () {
+        dataTable = $('#myTable').DataTable({
+            processing: true,
+            language: datatableFaLang,
+            lengthMenu: [10, 25, 50, 100,500],
+            pageLength: 50
+        });
+
+        // Setup - add a text input to each footer cell
+        $('#myTable thead tr').clone(true).appendTo('#myTable thead').addClass('filter-row');
+        $('#myTable thead tr:eq(1) th').each(function (i) {
+            $(this).unbind('click')
+            $(this).removeClass('sorting')
+            if ($(this).hasClass('filterable')) {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="جستجو..." />');
+
+                $('input', this).on('keyup change', function (e) {
+                    if (dataTable.column(i).search() !== this.value) {
+                        dataTable
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            }
+            else {
+                $(this).html('');
+            }
+        });
+    });
+</script>
+
+<style>
+    .dataTable > thead > tr.filter-row > th[class*=sort]:after {
+        display: none;
+    }
+
+    table.dataTable thead .sorting {
+        background: none;
+    }
+    .dataTable > thead > tr.filter-row > th {
+        padding: 5px;
+    }
+    .dataTable > thead > tr.filter-row input {
+        font-weight: normal;
+        padding: 2px 5px;
+        border-radius: 3px !important;
+        font-size: 12px;
+        margin: 0;
+        width:100px;
+    }
+</style>
+
+
+<style>
+    .dataTable > thead > tr > th[class*=sort]:after {
+        float: left;
+    }
+</style>
+
+@if (TempData["Error"] != null)
+{
+<script>
+    
+     swal({
+        title: "اشکال در تکمیل عملیات مورد نظر!",
+        text: '@Html.Raw(TempData["Error"])',
+        type: "error",
+        showCancelButton: false,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "بستن",
+        closeOnConfirm: false
+    })
+</script>
+}

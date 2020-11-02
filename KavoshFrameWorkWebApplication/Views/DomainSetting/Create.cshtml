@@ -1,0 +1,83 @@
+﻿@model DomainSettingViewModel
+@{
+    var entity = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var title = Entities.ResourceManager.GetString(entity);
+    ViewData["Title"] = title;
+}
+
+@section breadcrumbs{
+    @await Component.InvokeAsync("BreadCrumb", new
+    {
+        args = new AdminBreadCrumbArgsViewModel
+        {
+            EntityTitle = title,
+            Controller = entity,
+            PageType = AdminPageType.Create
+        }
+    })
+}
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card card-default">
+            <div class="card-header card-header-border-bottom">
+                <h2>درج دامین</h2>
+            </div>
+            <div class="infoForm">
+                <form class="form-horizontal" asp-antiforgery="true" method="post" id="infoForm">
+                    <input type="hidden" name="SaveAndReturn" />
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="form-group  row" id="btn-row-opertion">
+                        <div class="circle">
+                            <a href="@Url.Action("Index", "DomainSetting")" class="submit-with-icon">
+                                <span class="mdi mdi-close"></span>
+                            </a>
+                        </div>
+                        <div class="circle">
+                            <button type="submit" class="submit-with-icon">
+                                <span class="mdi mdi-content-save"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Title" class="col-sm-1 control-label">نام دامین</label>
+                        <div class="col-sm-5">
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Server" class="col-sm-1 control-label">IP سرور</label>
+                        <div class="col-sm-5">
+                            <input asp-for="Server" class="form-control" />
+                            <span asp-validation-for="Server"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="UserName" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="Password" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Description" class="col-sm-1 control-label">توضیحات</label>
+                        <div class="col-sm-5">
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

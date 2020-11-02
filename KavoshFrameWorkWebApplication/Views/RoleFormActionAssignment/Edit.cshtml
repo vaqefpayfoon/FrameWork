@@ -1,0 +1,26 @@
+﻿@model RoleFormActionAssignmentsViewModel
+@{
+    var entity = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var title = Entities.ResourceManager.GetString(entity);
+    ViewData["Title"] = title;
+}
+
+@if (User.IsInRole(RoleType.Admin.ToString()))
+{
+    @section breadcrumbs{
+        @await Component.InvokeAsync("BreadCrumb", new
+        {
+            args = new AdminBreadCrumbArgsViewModel
+            {
+               Id = Model.RoleId,
+            EntityTitle = title,
+
+            Controller = entity,
+            PageType = AdminPageType.Edit
+            }
+        })
+    }
+
+}
+@await Html.PartialAsync("_Edit", Model)
+

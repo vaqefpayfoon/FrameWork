@@ -1,0 +1,244 @@
+﻿@model CompanyExtraordinaryMeetingViewModel
+@{
+    var entity = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var title = Entities.ResourceManager.GetString(entity);
+    ViewData["Title"] = title;
+}
+
+@section breadcrumbs{
+    @await Component.InvokeAsync("BreadCrumb", new
+    {
+        args = new AdminBreadCrumbArgsViewModel
+        {
+            EntityTitle = title,
+            Controller = entity,
+            PageType = AdminPageType.Create
+        }
+    })
+}
+
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card card-default">
+            <div class="card-header card-header-border-bottom">
+                <h2>درج مجمع عمومی فوق العاده</h2>
+            </div>
+
+            <div class="infoForm">
+                <form class="form-horizontal" asp-antiforgery="true" method="post" id="infoForm">
+                    <input type="hidden" name="SaveAndReturn" />
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="form-group  row" id="btn-row-opertion">
+                        <div class="circle">
+                            <a href="@Url.Action("Index", "CompanyExtraordinaryMeeting")" class="submit-with-icon">
+                                <span class="mdi mdi-close"></span>
+                            </a>
+                        </div>
+                        <div class="circle">
+                            <button type="submit" class="submit-with-icon">
+                                <span class="mdi mdi-content-save"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="CompanyId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="CompanyId" for="CompanyId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("Company_Read", "CompanyExtraordinaryMeeting")" />
+                                    </transport>
+                                </datasource>
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="AssemblyType" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <select asp-for="AssemblyType" asp-items="Html.GetEnumSelectList(typeof(AssemblyType))" class="not-sol form-control"></select>
+                            <span asp-validation-for="AssemblyType"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="Date" class="col-sm-1 control-label"></label>
+                        <div class="input-group-addon clock col-sm-5" data-MdDateTimePicker="true" data-trigger="click" data-targetselector="#Date">
+                            <span class="r-input-icon">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" /></svg>
+                            </span>
+                            <input asp-for="JalaliDate" style="padding-right:60px" type="text" class="form-control" id="Date" placeholder="yyyy/mm/dd" data-MdDateTimePicker="true" data-placement="right" value="@Model?.JalaliDate" />
+                            <span asp-validation-for="JalaliDate"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="company-wrapper">
+                        <label asp-for="FiscalYearId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="FiscalYearId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("FiscalYear_Read", "CompanyExtraordinaryMeeting")" />
+                                    </transport>
+                                </datasource>
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="company-wrapper">
+                        <label asp-for="MainGroupId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="MainGroupId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("MainGroup_Read", "CompanyExtraordinaryMeeting")" />
+                                    </transport>
+                                </datasource>
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="company-wrapper">
+                        <label asp-for="SubGroupId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="SubGroupId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("SubGroup_Read", "CompanyExtraordinaryMeeting")" />
+                                    </transport>
+                                </datasource>
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="MeetingSubject" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <select asp-for="MeetingSubject" onchange="toggleCapitalChange(this.value)" asp-items="Html.GetEnumSelectList(typeof(MeetingSubject))" class="not-sol form-control">
+                                <option value="">انتخاب کنید</option>
+                            </select>
+                            <span asp-validation-for="MeetingSubject"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="CapitalChangeFrom" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <input asp-for="CapitalChangeFrom" class="form-control" />
+
+                            <span asp-validation-for="CapitalChangeFrom"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="CapitalChangeTo" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5"> 
+                            <input asp-for="CapitalChangeTo" class="form-control" />
+                            <span asp-validation-for="CapitalChangeTo"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="Decisions" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-10">
+                            <input asp-for="Decisions" class="form-control" />
+                            <span asp-validation-for="Decisions"></span>
+                        </div>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function valueMapperCompany(options) {
+        $.ajax({
+            url: "@Url.Action("Company_Read_ValueMapper", "CompanyExtraordinaryMeeting")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function valueMapperFiscalYear(options) {
+        $.ajax({
+            url: "@Url.Action("FiscalYear_Read", "CompanyExtraordinaryMeeting")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function valueMapperMainGroup(options) {
+        $.ajax({
+            url: "@Url.Action("MainGroup_Read", "CompanyExtraordinaryMeeting")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function valueMapperSubGroup(options) {
+        $.ajax({
+            url: "@Url.Action("SubGroup_Read", "CompanyExtraordinaryMeeting")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function convertValues(value) {
+        var data = {};
+
+        value = $.isArray(value) ? value : [value];
+
+        for (var idx = 0; idx < value.length; idx++) {
+            data["values[" + idx + "]"] = value[idx];
+        }
+
+        return data;
+    }
+</script>
+
+

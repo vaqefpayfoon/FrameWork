@@ -1,0 +1,56 @@
+﻿@model IEnumerable<KeyTextViewModel>
+
+@{
+    var entity = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var title = Entities.ResourceManager.GetString(entity);
+    ViewData["Title"] = title;
+}
+
+@section breadcrumbs{
+    @await Component.InvokeAsync("BreadCrumb", new
+    {
+        args = new AdminBreadCrumbArgsViewModel
+        {
+            EntityTitle = title,
+            Controller = entity,
+            PageType = AdminPageType.List
+        }
+    })
+}
+    <div class="k-rtl">
+
+        @(Html.Kendo().Grid(Model)
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(m => m.Id)
+                    .ClientTemplate("#= renderNumber() #")
+                    .Title("ردیف").Sortable(false).Width(100);
+        columns.Bound(p => p.Text).Title("نقش");
+        columns.Bound(p => p.Id).ClientTemplate("<a href='./" + entity + "/Edit/#:Id#'><i class='k-icon k-i-edit'></i></a>").HeaderHtmlAttributes(new { @class = "custom-action-button" }).Title("عملیات").IncludeInMenu(false); ;
+
+    })
+    .ToolBar(toolbar =>
+    {
+        toolbar.Search();
+        toolbar.Excel().Text("خروجی اکسل");
+      // toolbar.Pdf().Text("خروجی پی دی اف");
+    })
+     .Pdf(pdf => pdf
+          .AllPages()
+          .Landscape()
+          .PaperSize("A4")
+          .Scale(0.75)
+        ).Excel(excel => excel
+        .FileName("ApplicationUser.xlsx")
+        .AllPages()
+        )
+    .Pageable()
+    .Sortable()
+    .Filterable()
+    .Navigatable()
+      .Reorderable(reorderable => reorderable.Columns(true))
+    .ColumnMenu()
+    .Scrollable(s=>s.Virtual(GridVirtualizationMode.Columns).Height("auto"))
+     )
+    </div>

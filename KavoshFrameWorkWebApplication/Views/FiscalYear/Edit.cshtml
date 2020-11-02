@@ -1,0 +1,123 @@
+﻿@model FiscalYearViewModel
+@{
+    var entity = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var title = Entities.ResourceManager.GetString(entity);
+    ViewData["Title"] = title;
+}
+
+@section breadcrumbs{
+    @await Component.InvokeAsync("BreadCrumb", new
+    {
+        args = new AdminBreadCrumbArgsViewModel
+        {
+            EntityTitle = title,
+            Controller = entity,
+            PageType = AdminPageType.Create
+        }
+    })
+}
+
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card card-default">
+            <div class="card-header card-header-border-bottom">
+                <h2>ویرایش سال مالی</h2>
+            </div>
+
+            <div class="infoForm">
+                <form asp-antiforgery="true" method="post" id="infoForm">
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="form-group  row" id="btn-row-opertion">
+                        <div class="circle">
+                            <a href="@Url.Action("Index", "ProjectDetail")" class="submit-with-icon">
+                                <span class="mdi mdi-close"></span>
+                            </a>
+                        </div>
+                        <div class="circle">
+                            <button type="submit" class="submit-with-icon">
+                                <span class="mdi mdi-content-save"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="CompanyId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="ProjectTypeId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("FiscalYear_Read", "FiscalYear")" />
+                                    </transport>
+                                </datasource>
+                                <virtual item-height="26" value-mapper="valueMapper" />
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="Title" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="StartDate" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-5">
+                            <input asp-for="JalaliStartDate" class="form-control persian-picker" value="@Model?.JalaliStartDate" />
+                            <span asp-validation-for="JalaliStartDate"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="EndDate" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-5">
+                            <input asp-for="JalaliEndDate" class="form-control persian-picker" value="@Model?.JalaliEndDate" />
+                            <span asp-validation-for="JalaliEndDate"></span>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function valueMapper(options) {
+        $.ajax({
+            url: "@Url.Action("FiscalYear_Read", "FiscalYear")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function convertValues(value) {
+        var data = {};
+
+        value = $.isArray(value) ? value : [value];
+
+        for (var idx = 0; idx < value.length; idx++) {
+            data["values[" + idx + "]"] = value[idx];
+        }
+
+        return data;
+    }
+</script>
+
+
+

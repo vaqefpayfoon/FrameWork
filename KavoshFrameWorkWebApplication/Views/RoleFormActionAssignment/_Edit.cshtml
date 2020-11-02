@@ -1,0 +1,119 @@
+﻿@model RoleFormActionAssignmentsViewModel
+@{
+    Layout = null;
+}
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card card-default">
+            <div class="card-header card-header-border-bottom">
+                <h2>ویرایش دسترسی ها</h2>
+            </div>
+            <div class="infoForm">
+                <form class="form-horizontal" asp-antiforgery="true" method="post" id="infoForm">
+
+                    <input type="hidden" name="SaveAndReturn" />
+
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="form-group  row" id="btn-row-opertion">
+                        <div class="circle">
+                            <a href="@Url.Action("Index", "RoleFormActionAssignment")" class="submit-with-icon">
+                                <span class="mdi mdi-close"></span>
+                            </a>
+                        </div>
+                        <div class="circle">
+                            <button type="submit" class="submit-with-icon">
+                                <span class="mdi mdi-content-save"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="RoleId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="RoleId" style="width:100%" for="RoleId"
+                                            datatextfield="Name"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("ApplicationRole_Read", "ApplicationUser")" />
+                                    </transport>
+                                </datasource>
+                                <virtual item-height="26" value-mapper="valueMapper" />
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @for (int i = 0; i < Model.Items.Count; i++)
+                        {
+                            <input asp-for="@Model.Items[i].SystemFormId" type="hidden" />
+
+                            <div class="col-sm-2"><label class="col-sm-3 control-label">@(i + 1)</label></div>
+                            <div class="col-sm-2">
+                                @Model.Items[i].SystemFormTitle
+                                <input asp-for="@Model.Items[i].SystemFormId" type="hidden" />
+                            </div>
+
+                            <div class="col-sm-2">
+                                <label asp-for="@Model.Items[i].CanCreate" class="control-label">ایجاد</label>
+
+                                <input asp-for="@Model.Items[i].CanCreate" type="checkbox" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label asp-for="@Model.Items[i].CanRead" class="control-label">مشاهده</label>
+
+                                <input asp-for="@Model.Items[i].CanRead" type="checkbox" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label asp-for="@Model.Items[i].CanUpdate" class="control-label">ویرایش</label>
+
+                                <input asp-for="@Model.Items[i].CanUpdate" type="checkbox" />
+                            </div>
+                            <div class="col-sm-2">
+                                <label asp-for="@Model.Items[i].CanDelete" class="control-label">حذف</label>
+
+                                <input asp-for="@Model.Items[i].CanDelete" type="checkbox" />
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function valueMapper(options) {
+        $.ajax({
+            url: "@Url.Action("ApplicationRole_ValueMapper", "ApplicationUser")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+
+        $.ajax({
+            url: "@Url.Action("TreeViewData_ValueMapper", "ApplicationUser")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function convertValues(value) {
+        var data = {};
+
+        value = $.isArray(value) ? value : [value];
+
+        for (var idx = 0; idx < value.length; idx++) {
+            data["values[" + idx + "]"] = value[idx];
+        }
+
+        return data;
+    }
+</script>

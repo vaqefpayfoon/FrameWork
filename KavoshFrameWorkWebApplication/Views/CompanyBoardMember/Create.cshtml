@@ -1,0 +1,340 @@
+﻿@model CompanyBoardMemberViewModel
+@{
+    var entity = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var title = Entities.ResourceManager.GetString(entity);
+    ViewData["Title"] = title;
+}
+
+@section breadcrumbs{
+    @await Component.InvokeAsync("BreadCrumb", new
+    {
+        args = new AdminBreadCrumbArgsViewModel
+        {
+            EntityTitle = title,
+            Controller = entity,
+            PageType = AdminPageType.Create
+        }
+    })
+}
+
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card card-default">
+            <div class="card-header card-header-border-bottom">
+                <h2>درج اعضای هیات مدیره</h2>
+            </div>
+
+            <div class="infoForm">
+                <form class="form-horizontal" asp-antiforgery="true" method="post" id="infoForm">
+                    <input type="hidden" name="SaveAndReturn" />
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="form-group  row" id="btn-row-opertion">
+                        <div class="circle">
+                            <a href="@Url.Action("Index", "CompanyBoardMember")" class="submit-with-icon">
+                                <span class="mdi mdi-close"></span>
+                            </a>
+                        </div>
+                        <div class="circle">
+                            <button type="submit" class="submit-with-icon">
+                                <span class="mdi mdi-content-save"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="CompanyId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="CompanyId" for="CompanyId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("Company_Read", "CompanyBoardMember")" />
+                                    </transport>
+                                </datasource>
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="BoardofDirectorsLegalMemberId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="BoardofDirectorsLegalMemberId" for="BoardofDirectorsLegalMemberId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("BoardofDirectorsLegalMember_Read", "CompanyBoardMember")" />
+                                    </transport>
+                                </datasource>
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group row">
+                        <label asp-for="AgentId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="AgentId" for="AgentId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("Agent_Read", "CompanyBoardMember")" />
+                                    </transport>
+                                </datasource>
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label asp-for="LastElectionMeetingDate" class="col-sm-1 control-label"></label>
+                        <div class="input-group-addon clock col-sm-5" data-MdDateTimePicker="true" data-trigger="click" data-targetselector="#LastElectionMeetingDate">
+                            <span class="r-input-icon">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" /></svg>
+                            </span>
+                            <input asp-for="JalaliLastElectionMeetingDate" style="padding-right:60px" type="text" class="form-control" id="LastElectionMeetingDate" placeholder="yyyy/mm/dd" data-MdDateTimePicker="true" data-placement="right" value="@Model?.JalaliLastElectionMeetingDate" />
+                            <span asp-validation-for="JalaliLastElectionMeetingDate"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="AppointmentDate" class="col-sm-1 control-label"></label>
+                        <div class="input-group-addon clock col-sm-5" data-MdDateTimePicker="true" data-trigger="click" data-targetselector="#AppointmentDate">
+                            <span class="r-input-icon">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" /></svg>
+                            </span>
+                            <input asp-for="JalaliAppointmentDate" style="padding-right:60px" type="text" class="form-control" id="AppointmentDate" placeholder="yyyy/mm/dd" data-MdDateTimePicker="true" data-placement="right" value="@Model?.JalaliAppointmentDate" />
+                            <span asp-validation-for="JalaliAppointmentDate"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="NewspaperEntryDate" class="col-sm-1 control-label"></label>
+                        <div class="input-group-addon clock col-sm-5" data-MdDateTimePicker="true" data-trigger="click" data-targetselector="#NewspaperEntryDate">
+                            <span class="r-input-icon">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" /></svg>
+                            </span>
+                            <input asp-for="JalaliNewspaperEntryDate" style="padding-right:60px" type="text" class="form-control" id="NewspaperEntryDate" placeholder="yyyy/mm/dd" data-MdDateTimePicker="true" data-placement="right" value="@Model?.JalaliNewspaperEntryDate" />
+                            <span asp-validation-for="JalaliNewspaperEntryDate"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="CompletionDate" class="col-sm-1 control-label"></label>
+                        <div class="input-group-addon clock col-sm-5" data-MdDateTimePicker="true" data-trigger="click" data-targetselector="#CompletionDate">
+                            <span class="r-input-icon">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none" /><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" /></svg>
+                            </span>
+                            <input asp-for="JalaliCompletionDate" style="padding-right:60px" type="text" class="form-control" id="CompletionDate" placeholder="yyyy/mm/dd" data-MdDateTimePicker="true" data-placement="right" value="@Model?.JalaliCompletionDate" />
+                            <span asp-validation-for="JalaliCompletionDate"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="Gender" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <div class="col-sm-5">
+
+                                <label class="">
+                                    <input type="radio" name="Gender" checked value="0" />
+                                    مرد
+                                </label>
+                                <label class="">
+                                    <input type="radio" name="Gender" value="1" />
+                                    زن
+                                </label>
+                            </div>
+                            <span asp-validation-for="Gender"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="NationalCode" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <input asp-for="NationalCode" class="form-control" />
+                            <span asp-validation-for="NationalCode"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="IsActive" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <div class="col-sm-5">
+                                <label class="">
+                                    <input type="radio" checked name="IsActive" value="true" />
+                                    فعال
+                                </label>
+                                <label class="">
+                                    <input type="radio" name="IsActive" value="false" />
+                                    غیرفعال
+                                </label>
+                            </div>
+                            <span asp-validation-for="IsActive"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="LegalMemberTypeId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="LegalMemberTypeId" for="LegalMemberTypeId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("LegalMemberType_Read", "CompanyBoardMember")" />
+                                    </transport>
+                                </datasource>
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="OrganizationalPositionId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="OrganizationalPositionId" for="OrganizationalPositionId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("OrganizationalPosition_Read", "CompanyBoardMember")" />
+                                    </transport>
+                                </datasource>
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label asp-for="AgentCompanyId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="AgentCompanyId" for="AgentCompanyId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("AgentCompany_Read", "CompanyBoardMember")" />
+                                    </transport>
+                                </datasource>
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function valueMapperCompany(options) {
+        $.ajax({
+            url: "@Url.Action("Company_Read_ValueMapper", "CompanyAnnualMeeting")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function valueMapperBoardofDirectorsLegalMember(options) {
+        $.ajax({
+            url: "@Url.Action("BoardofDirectorsLegalMember_Read_ValueMapper", "CompanyAnnualMeeting")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function valueMapperAgent(options) {
+        $.ajax({
+            url: "@Url.Action("Agent_Read_ValueMapper", "CompanyAnnualMeeting")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function valueMapperLegalMemberType(options) {
+        $.ajax({
+            url: "@Url.Action("LegalMemberType_Read_ValueMapper", "CompanyAnnualMeeting")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function valueMapperOrganizationalPosition(options) {
+        $.ajax({
+            url: "@Url.Action("OrganizationalPosition_Read_ValueMapper", "CompanyAnnualMeeting")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+    function valueMapperAgentCompany(options) {
+        $.ajax({
+            url: "@Url.Action("AgentCompany_Read_ValueMapper", "CompanyAnnualMeeting")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function convertValues(value) {
+        var data = {};
+
+        value = $.isArray(value) ? value : [value];
+
+        for (var idx = 0; idx < value.length; idx++) {
+            data["values[" + idx + "]"] = value[idx];
+        }
+
+        return data;
+    }
+</script>

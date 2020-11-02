@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KavoshFrameWorkWebApplication", "KavoshFrameWorkWebApplication\KavoshFrameWorkWebApplication.csproj", "{BC69D009-CFCD-4B79-A96B-C710BC12CE09}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KavoshFrameWorkCommon", "KavoshFrameWorkCommon\KavoshFrameWorkCommon.csproj", "{EE0DD3A0-B906-426D-A152-110AF792306B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KavoshFrameWorkCore", "KavoshFrameWorkCore\KavoshFrameWorkCore.csproj", "{2DBB59DD-042B-4CCB-8201-B53B428099C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KavoshFrameWorkData", "KavoshFrameWorkData\KavoshFrameWorkData.csproj", "{3392C0FD-3AAD-4709-A25A-83CF2ECF4943}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC69D009-CFCD-4B79-A96B-C710BC12CE09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC69D009-CFCD-4B79-A96B-C710BC12CE09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC69D009-CFCD-4B79-A96B-C710BC12CE09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC69D009-CFCD-4B79-A96B-C710BC12CE09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE0DD3A0-B906-426D-A152-110AF792306B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE0DD3A0-B906-426D-A152-110AF792306B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE0DD3A0-B906-426D-A152-110AF792306B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE0DD3A0-B906-426D-A152-110AF792306B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DBB59DD-042B-4CCB-8201-B53B428099C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DBB59DD-042B-4CCB-8201-B53B428099C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DBB59DD-042B-4CCB-8201-B53B428099C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DBB59DD-042B-4CCB-8201-B53B428099C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3392C0FD-3AAD-4709-A25A-83CF2ECF4943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3392C0FD-3AAD-4709-A25A-83CF2ECF4943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3392C0FD-3AAD-4709-A25A-83CF2ECF4943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3392C0FD-3AAD-4709-A25A-83CF2ECF4943}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE49623C-D4A2-47E3-A6A0-2B47B74144AE}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://192.168.254.46:8080/tfs/kavosh
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = KavoshFrameWorkWebApplication\\KavoshFrameWorkWebApplication.csproj
+		SccProjectName1 = KavoshFrameWorkWebApplication
+		SccLocalPath1 = KavoshFrameWorkWebApplication
+		SccProjectUniqueName2 = KavoshFrameWorkCommon\\KavoshFrameWorkCommon.csproj
+		SccProjectName2 = KavoshFrameWorkCommon
+		SccLocalPath2 = KavoshFrameWorkCommon
+		SccProjectUniqueName3 = KavoshFrameWorkCore\\KavoshFrameWorkCore.csproj
+		SccProjectName3 = KavoshFrameWorkCore
+		SccLocalPath3 = KavoshFrameWorkCore
+		SccProjectUniqueName4 = KavoshFrameWorkData\\KavoshFrameWorkData.csproj
+		SccProjectName4 = KavoshFrameWorkData
+		SccLocalPath4 = KavoshFrameWorkData
+	EndGlobalSection
+EndGlobal

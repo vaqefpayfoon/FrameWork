@@ -1,0 +1,84 @@
+﻿@model IEnumerable<DomainSettingViewModel>
+
+@{
+    var entity = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var title = Entities.ResourceManager.GetString(entity);
+    ViewData["Title"] = title;
+}
+
+@if (User.IsInRole(RoleType.Admin.ToString()))
+{
+    @section breadcrumbs{
+        @await Component.InvokeAsync("BreadCrumb", new
+    {
+        args = new AdminBreadCrumbArgsViewModel
+        {
+            EntityTitle = title,
+            Controller = entity,
+            PageType = AdminPageType.List
+        }
+    })
+    }
+
+}
+
+    <div class="k-rtl">
+
+        @(Html.Kendo().Grid(Model)
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(m => m.Id)
+                    .ClientTemplate("#= renderNumber() #")
+                    .Title("ردیف").Sortable(false).Width(100);
+        columns.Bound(p => p.Title).Title("عنوان");
+        columns.Bound(p => p.Server).Title("IP سرور");
+        columns.Bound(p => p.UserName).Title("نام کاربری");
+        columns.Bound(p => p.IsActive).Title("وضعیت").ClientTemplate(
+    "# if (IsActive == true) { #"+ "<i class='k-icon k-i-link-horizontal' style='color:green' title='دامین در دسترس است'></i>" + "# } else { #" + "<i class='k-icon k-i-unlink-horizontal'style='color:red'title='دامین در دسترس نیست'></i>" + "# } #");
+        columns.Command(command => { command.Destroy().Text(" ").IconClass("k-icon k-i-delete"); }).Title("عملیات").IncludeInMenu(false);
+    })
+    .ToolBar(toolbar =>
+    {
+        toolbar.Search();
+        toolbar.Excel().Text("خروجی اکسل");
+      // toolbar.Pdf().Text("خروجی پی دی اف");
+    })
+    .Pdf(pdf => pdf
+           .AllPages()
+           .Landscape()
+           .PaperSize("A4")
+           .Scale(0.75)
+        ).Excel(excel => excel
+        .FileName("DomainSetting.xlsx")
+        .AllPages()
+        )
+    .Pageable()
+    .Sortable()
+    .Filterable()
+    .Navigatable()
+      .Reorderable(reorderable => reorderable.Columns(true))
+     .ColumnMenu()
+        .Scrollable(s=>s.Virtual(GridVirtualizationMode.Columns).Height("auto"))
+        .DataSource(dataSource => dataSource
+        .WebApi()
+        .ServerOperation(false)
+        .Model(model =>
+        {
+            model.Id(p => p.Id);
+        })
+        .Events(events => events.Error("error_handler"))
+        .Destroy(destroy => destroy.Action("DELETE", "DomainSetting", new { id = "{0}" }))
+        )
+        )
+    </div>
+<script>
+    function error_handler(e) {
+        var errors = $.parseJSON(e.xhr.responseText);
+        if (errors) {
+            alert("Errors:\n" + errors.join("\n"));
+        }
+    }
+</script>
+
+

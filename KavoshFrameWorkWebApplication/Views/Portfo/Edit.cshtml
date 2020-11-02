@@ -1,0 +1,101 @@
+﻿@model PortfoViewModel
+@{
+    var entity = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var title = Entities.ResourceManager.GetString(entity);
+    ViewData["Title"] = title;
+}
+
+@section breadcrumbs{
+    @await Component.InvokeAsync("BreadCrumb", new
+    {
+        args = new AdminBreadCrumbArgsViewModel
+        {
+            EntityTitle = title,
+            Controller = entity,
+            PageType = AdminPageType.Create
+        }
+    })
+}
+
+
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card card-default">
+            <div class="card-header card-header-border-bottom">
+                <h2>ویرایش پرتفو</h2>
+            </div>
+            <form class="form-horizontal" asp-antiforgery="true" method="post" id="infoForm">
+                <input type="hidden" name="SaveAndReturn" />
+                <div asp-validation-summary="ModelOnly"></div>
+                @if (TempData["ErrorMessage"] != null)
+                {
+                <div class="alert alert-success">
+                    @TempData["ErrorMessage"]
+                </div>
+                }
+                <input asp-for="Id" type="hidden" />
+                <input asp-for="AddedDate" type="hidden" />
+                <input asp-for="CompanyId" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="CompanyTitle" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-5">
+                        <strong>@Model.CompanyTitle</strong>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="AggregatePercentageCalculationType" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-5">
+                        <select asp-for="AggregatePercentageCalculationType" asp-items="Html.GetEnumSelectList<AggregatePercentageCalculationType>()" class="not-sol form-control"></select>
+                        <span asp-validation-for="AggregatePercentageCalculationType"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="AggregatePercentage" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-5">
+                        <input dir="ltr" value="@Math.Round(Model.AggregatePercentage, 2)" @(Model.AggregatePercentageCalculationType == AggregatePercentageCalculationType.Formula ? "readonly" : "") class="currency-number form-control" type="text" />
+                        <input asp-for="AggregatePercentage" class="form-control" />
+                        <span asp-validation-for="AggregatePercentage"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">ارتباط به هلدینگ</label>
+                    <div class="col-sm-2">
+                        <label asp-for="ShareholderHoldingCommunication">سهامدار</label>
+                        <input asp-for="ShareholderHoldingCommunication" class="checkbox pull-right" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label asp-for="UnderManagementHoldingCommunication">تحت مدیریت</label>
+                        <input asp-for="UnderManagementHoldingCommunication" class="checkbox pull-right" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CompanyTypeTitle" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-5">
+                        <strong>@Model.CompanyTypeTitle</strong>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CurrentCapital" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-5">
+                        <strong>@Model.CurrentCapital.ToString("N0")</strong>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="AgentsNumber" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-5">
+                        <input asp-for="AgentsNumber" class="form-control" />
+                        <span asp-validation-for="AgentsNumber"></span>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

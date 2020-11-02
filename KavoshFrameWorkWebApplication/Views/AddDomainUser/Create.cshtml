@@ -1,0 +1,148 @@
+﻿@model DomainUserViewModel
+@{
+    var entity = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var title = Entities.ResourceManager.GetString(entity);
+    ViewData["Title"] = title;
+}
+
+@section breadcrumbs{
+    @await Component.InvokeAsync("BreadCrumb", new
+    {
+        args = new AdminBreadCrumbArgsViewModel
+        {
+            EntityTitle = title,
+            Controller = entity,
+            PageType = AdminPageType.Create
+        }
+    })
+}
+<div class="content-wrapper">
+    <div class="content">
+        <div class="card card-default">
+            <div class="card-header card-header-border-bottom">
+                <h2>درج کاربر دامین</h2>
+            </div>
+            <div class="infoForm">
+                <form class="form-horizontal" asp-antiforgery="true" method="post" id="infoForm">
+
+                    <input type="hidden" name="SaveAndReturn" />
+
+                    <div asp-validation-summary="ModelOnly"></div>
+
+                    <div class="form-group  row" id="btn-row-opertion">
+                        <div class="circle">
+                            <a href="@Url.Action("Index", "ApplicationUser")" class="submit-with-icon">
+                                <span class="mdi mdi-close"></span>
+                            </a>
+                        </div>
+                        <div class="circle">
+                            <button type="submit" class="submit-with-icon">
+                                <span class="mdi mdi-content-save"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                        @if (Model.IsSuccess && Model.message == "Sucsses")
+                        {
+                            <div class="alert alert-success">
+                                <span>عملیات با موفقیت انجام شد.</span>
+                            </div>
+                        }
+                        @if (!Model.IsSuccess && Model.message == "Error")
+                        {
+                            <div class="alert alert-danger">
+                                <span>کاربر عضو دامین نیست.</span>
+                            </div>
+                        }
+
+                        <label for="DomainId" class="col-sm-1 control-label"> نام دامین</label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="DomainId" style="width:100%"
+                                            datatextfield="Title"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("DomainSetting_Read", "AddDomainUser")" />
+                                    </transport>
+                                </datasource>
+                                <virtual item-height="26" value-mapper="valueMapper" />
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+                        @*<div class="col-sm-5">
+                <select asp-for="DomainId" class="form-control">
+                    @await Component.InvokeAsync("SimpleDropDownList", new { entity = nameof(DomainSetting), id = Model?.DomainId })
+                </select>
+                <span asp-validation-for="DomainId"></span>
+            </div>*@
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="UserName" class="col-sm-1 control-label">نام کاربری</label>
+                        <div class="col-sm-5">
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="RoleId" class="col-sm-1 control-label"></label>
+                        <div class="col-sm-5">
+                            <kendo-combobox name="RoleId" style="width:100%"
+                                            datatextfield="Name"
+                                            datavaluefield="Id"
+                                            min-length="2"
+                                            height="520"
+                                            filter="FilterType.Contains">
+                                <datasource type="DataSourceTagHelperType.Ajax" page-size="80">
+                                    <transport>
+                                        <read url="@Url.Action("ApplicationRole_Read", "ApplicationUser")" />
+                                    </transport>
+                                </datasource>
+                                <virtual item-height="26" value-mapper="valueMapper" />
+                                <popup-animation>
+                                    <open duration="500" />
+                                    <close duration="500" />
+                                </popup-animation>
+                            </kendo-combobox>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+   function valueMapper(options) {
+        $.ajax({
+            url: "@Url.Action("DomainSetting_ValueMapper", "AddDomainUser")",
+            data: convertValues(options.value),
+            success: function (data) {
+                options.success(data);
+            }
+        });
+    }
+
+    function convertValues(value) {
+        var data = {};
+
+        value = $.isArray(value) ? value : [value];
+
+        for (var idx = 0; idx < value.length; idx++) {
+            data["values[" + idx + "]"] = value[idx];
+        }
+
+        return data;
+    }
+</script>
+
+

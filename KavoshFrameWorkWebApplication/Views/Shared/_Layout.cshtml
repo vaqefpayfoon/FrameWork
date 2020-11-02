@@ -1,0 +1,309 @@
+﻿@{
+    Layout = null;
+}
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager
+<style>
+    .circle {
+        border-radius: 100%;
+        border: 0px;
+        height: 30px;
+        width: 30px;
+    }
+
+    .mdi-content-save {
+        font-size: 20px;
+        padding: 8px 3px 0 8px;
+    }
+
+    .mdi-close {
+        font-size: 20px;
+        padding: 8px 3px 0 8px;
+        color: black;
+    }
+
+    .submit-with-icon {
+        background: transparent;
+        border: 0px;
+        padding: 0;
+        outline: 0;
+    }
+
+    .circle:active {
+        content: '';
+        background-color: rgb(235, 235, 235);
+        border-color: rgb(173, 173, 173);
+    }
+
+    #btn-row-opertion {
+        direction: ltr;
+        padding: 0px 3px 0 15px;
+    }
+       .clock {
+        position: relative;
+    }
+
+        .clock span {
+            position: absolute;
+            right: 30px;
+            top: 15px;
+        }
+</style>
+
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>kavosh</title>
+
+    <!-- GOOGLE FONTS -->
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM" defer></script>*@
+    <link href="~/assets/css/Montserrat.css" rel="stylesheet" />
+    <link href="~/material/css/materialdesignicons.css" rel="stylesheet" />
+
+    <!-- SLEEK CSS -->
+    <link id="sleek-css" rel="stylesheet" href="~/assets/css/sleek.rtl.css" />
+
+    <!-- PLUGINS CSS STYLE -->
+    <link href="~/assets/plugins/toaster/toastr.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/nprogress/nprogress.css" rel="stylesheet" />
+    <link href="~/assets/plugins/flag-icons/css/flag-icon.min.css" rel="stylesheet" />
+    @*<link href="~/assets/plugins/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+        <link href="~/assets/plugins/ladda/ladda.min.css" rel="stylesheet" />*@
+    @*<link href="~/assets/plugins/select2/css/select2.min.css" rel="stylesheet" />*@
+
+    <!-- FAVICON -->
+    <link href='//fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet'>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link href="~/lib/kendo/css/web/kendo.common-empty.min.css" rel="stylesheet-disabled" />
+    <link href="~/lib/kendo/css/web/kendo.rtl.min.css" rel="stylesheet-disabled" />
+    <link href="~/lib/kendo/css/web/kendo.default-v2.min.css" rel="stylesheet" />
+
+
+
+
+
+    <script src="~/lib/kendo/js/jquery.min.js"></script>
+    @*<script src="~/PersianDate/jquery-2.1.1.js"></script>*@
+
+    <script src="~/lib/kendo/js/jszip.min.js"></script>
+    <script src="~/lib/kendo/js/kendo.all.min.js"></script>
+    <script src="~/lib/kendo/js/kendo.fa-IR.js"></script>
+    <script src="~/lib/kendo/js/kendo.aspnetmvc.min.js"></script>
+    <script src="~/lib/kendo/js/kendo.timezones.min.js"></script>
+    <link href="~/shared/examples.css" rel="stylesheet" />
+
+    @*<link href="~/lib/pwt.datepicker-master/dist/css/persian-datepicker.min.css" rel="stylesheet" />*@
+
+    <script src="~/shared/console.js"></script>
+    <script src="~/shared/prettify.js"></script>
+    <script src="~/shared/jquery.validate.js"></script>
+    <script src="~/shared/jquery.validate.unobtrusive.js"></script>
+
+
+    <script>
+        function resizeContainers() {
+            var headerHeight = $("#header").outerHeight(),
+                navbarWrapper = $("#example-nav-bar").height(),
+                webinarBarHeight = $("#webinar-banner:visible").outerHeight() + 2 || 0,
+                htmlHeight = (kendo.support.mobileOS) ? parseFloat(window.innerHeight) : $('html').height(),
+                sidebarHeight = htmlHeight - headerHeight - webinarBarHeight,
+                borderSize = 2,
+                navHeight = sidebarHeight - (navbarWrapper + borderSize);
+
+            $(".k-no-flexbox #example-sidebar").height(sidebarHeight);
+            $(".k-no-flexbox #nav-wrapper").height(navHeight);
+            $(".k-no-flexbox #main").height(sidebarHeight);
+        }
+
+        $(function () {
+            if (kendo.support.mobileOS) {
+                $(document.documentElement).addClass("k-hover-enabled");
+            }
+        });
+
+        $(document).ready(resizeContainers);
+        $(window).resize(resizeContainers);
+
+    </script>
+
+    <script src="~/assets/plugins/nprogress/nprogress.js"></script>
+    <script type="text/javascript">
+        function error_handler(e) {
+            alert("Server error");
+        }
+        var rowNumber = 0;
+
+        function resetRowNumber() {
+            rowNumber = 0;
+        }
+
+        function renderNumber() {
+            return ++rowNumber;
+        }
+    </script>
+
+
+
+</head>
+
+
+<body class="sidebar-fixed sidebar-dark header-light header-fixed" id="body">
+    <script>
+        NProgress.configure({ showSpinner: false });
+        NProgress.start();
+    </script>
+
+    <div class="mobile-sticky-body-overlay"></div>
+
+    <div class="wrapper">
+
+        @await Html.PartialAsync("_SidebarNavigation")
+        <div class="page-wrapper">
+            <!-- Header -->
+            <header class="main-header " id="header">
+                <nav class="navbar navbar-static-top navbar-expand-lg">
+                    <!-- Sidebar toggle button -->
+                    <button id="sidebar-toggler" class="sidebar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                    </button>
+                    <!-- search form -->
+                    <div class="search-form d-none d-lg-inline-block">
+                        <div class="input-group">
+                            @RenderSection("breadcrumbs", false)
+                        </div>
+                    </div>
+
+                    <div class="navbar-right ">
+                        <ul class="nav navbar-nav">
+                            <!-- Github Link Button -->
+                            <li class="dropdown notifications-menu">
+                                <button class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="mdi mdi-bell-outline"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li class="dropdown-header">You have 5 notifications</li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "TreeView")">
+                                            <i class="mdi mdi-account-plus"></i> New user registered
+                                            <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 10 AM</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="mdi mdi-account-remove"></i> User deleted
+                                            <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 07 AM</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="mdi mdi-chart-areaspline"></i> Sales report is ready
+                                            <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 12 PM</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="mdi mdi-account-supervisor"></i> New client
+                                            <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 10 AM</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="mdi mdi-server-network-off"></i> Server overloaded
+                                            <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 05 AM</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-footer">
+                                        <a class="text-center" href="#"> View All </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- User Account -->
+                            <li  class="dropdown user-menu">
+                                <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <img src="~/assets/img/user/user.png" class="user-image" alt="User Image" />
+                                    @await Component.InvokeAsync("HeaderProfile")
+                                    @*<span class="d-none d-lg-inline-block">Abdus Salam</span>*@
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <!-- User image -->
+                                    <li class="dropdown-header">
+                                        <img src="~/assets/img/user/user.png" class="img-circle" alt="User Image" />
+                                        <div class="d-inline-block">
+                                            @await Component.InvokeAsync("HeaderProfile") <small class="pt-1">@await Component.InvokeAsync("EmailProfile")</small>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <a href="profile.html">
+                                            <i class="mdi mdi-account"></i> My Profile
+                                        </a>
+                                    </li>
+                                    @*<li>
+                                            <a href="email-inbox.html">
+                                                <i class="mdi mdi-email"></i> Message
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <i class="mdi mdi-diamond-stone"></i> Projects </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <i class="mdi mdi-settings"></i> Account Setting </a>
+                                        </li>*@
+
+                                    <li class="dropdown-footer">
+                                        <a href="@Url.Action("Logout","Account")"> <i class="mdi mdi-logout"></i> خروج </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+
+            @RenderBody()
+            <footer class="footer mt-auto">
+                <div class="copyright bg-white">
+
+                </div>
+            </footer>
+        </div>
+    </div>
+
+
+    @*<script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/assets/plugins/toaster/toastr.min.js"></script>
+        <script src="~/assets/plugins/slimscrollbar/jquery.slimscroll.min.js"></script>
+        <script src="~/assets/js/sleek.js"></script>*@
+
+    <script>
+        $(function () {
+            $('#Grid .k-header-column-menu').last().hide();
+            $('#Grid .k-header-column-menu').first().hide();
+        })
+    </script>
+
+    <script src="~/assets/plugins/toaster/toastr.min.js"></script>
+    <script src="~/assets/plugins/slimscrollbar/jquery.slimscroll.min.js"></script>
+
+
+    <link href="~/PersianDate/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/PersianDate/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/PersianDate/jquery.Bootstrap-PersianDateTimePicker.css" rel="stylesheet" />
+
+
+     <script src="~/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/PersianDate/bootstrap.min.js"></script>
+
+
+    <script src="~/PersianDate/calendar.js"></script>
+    <script src="~/PersianDate/jquery.Bootstrap-PersianDateTimePicker.js"></script>
+    <script src="~/assets/js/sleek.js"></script>
+
+
+
+
+</body>
+</html>

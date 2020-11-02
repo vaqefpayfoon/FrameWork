@@ -1,0 +1,18 @@
+﻿@model IEnumerable<KeyTextViewModel>
+
+@{
+    Layout = null;
+}
+
+@*<option>انتخاب کنید ...</option>*@
+@foreach (var item in Model)
+{
+    if (item.IsSelected)
+    {
+        <option value="@item.Id" selected>@item.Text</option>
+    }
+    else
+    {
+        <option value="@item.Id">@item.Text</option>
+    }
+}

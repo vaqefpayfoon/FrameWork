@@ -1,0 +1,750 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountingRight" xml:space="preserve">
+    <value>حق حضور کمیته حسابرسی(ریال)</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>اقدامات انجام شده توسط شرکت</value>
+  </data>
+  <data name="AddedDate" xml:space="preserve">
+    <value>تاریخ ثبت</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>آدرس</value>
+  </data>
+  <data name="Agent" xml:space="preserve">
+    <value>نماینده</value>
+  </data>
+  <data name="AgentCompanyTitle" xml:space="preserve">
+    <value>محل اشتغال نماینده</value>
+  </data>
+  <data name="AgentPhone" xml:space="preserve">
+    <value>تلفن نماینده</value>
+  </data>
+  <data name="AgentsNumber" xml:space="preserve">
+    <value>تعداد نماینده</value>
+  </data>
+  <data name="AgentTitle" xml:space="preserve">
+    <value>نماینده</value>
+  </data>
+  <data name="AggregatePercentage" xml:space="preserve">
+    <value>درصد تجمعی گروه</value>
+  </data>
+  <data name="AggregatePercentageCalculationType" xml:space="preserve">
+    <value>نحوه محاسبه</value>
+  </data>
+  <data name="ApplicationUserId" xml:space="preserve">
+    <value>کاربر</value>
+  </data>
+  <data name="AppointmentDate" xml:space="preserve">
+    <value>تاریخ انتصاب</value>
+  </data>
+  <data name="ApprovalDate" xml:space="preserve">
+    <value>تاریخ تصویب</value>
+  </data>
+  <data name="ApprovalRefrenceId" xml:space="preserve">
+    <value>مرجع تصویب</value>
+  </data>
+  <data name="AprovalDate" xml:space="preserve">
+    <value>تاریخ تصویب</value>
+  </data>
+  <data name="AprovalRefrence" xml:space="preserve">
+    <value>مرجع تصویب</value>
+  </data>
+  <data name="AssemblyType" xml:space="preserve">
+    <value>نوع مجمع</value>
+  </data>
+  <data name="Assignments" xml:space="preserve">
+    <value>تکالیف محوله مجمع در خصوص بندهای حسابرسی و بازرسی قانونی</value>
+  </data>
+  <data name="BankFacilitiesCurrency" xml:space="preserve">
+    <value>تسهیلات ارزی بانکی</value>
+  </data>
+  <data name="BankFacilitiesRial" xml:space="preserve">
+    <value>تسهیلات بانکی میلیون ریال</value>
+  </data>
+  <data name="BankName" xml:space="preserve">
+    <value>نام بانک</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>تاریخ تولد</value>
+  </data>
+  <data name="BoardBonus" xml:space="preserve">
+    <value>پاداش هیات مدیره(میلیون ریال)</value>
+  </data>
+  <data name="BoardofDirectorsLegalMemberTitle" xml:space="preserve">
+    <value>نام عضو حقوقی هیات مدیره</value>
+  </data>
+  <data name="BoardRight" xml:space="preserve">
+    <value>حق حضور اعضای هیات مدیره(ریال)</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>بودجه</value>
+  </data>
+  <data name="BudgetId" xml:space="preserve">
+    <value>بودجه</value>
+  </data>
+  <data name="BurseCode" xml:space="preserve">
+    <value>کد بورس</value>
+  </data>
+  <data name="CapitalChangeFrom" xml:space="preserve">
+    <value>از مبلغ (ریال)</value>
+  </data>
+  <data name="CapitalChangePercentage" xml:space="preserve">
+    <value>درصد تغییرات سرمایه</value>
+  </data>
+  <data name="CapitalChangeTo" xml:space="preserve">
+    <value>تا مبلغ (ریال)</value>
+  </data>
+  <data name="CapitalIncreaseFromAccumulatedProfits" xml:space="preserve">
+    <value>درصد افزایش سرمایه از محل سود انباشته</value>
+  </data>
+  <data name="CapitalIncreaseFromAssetsRevaluation" xml:space="preserve">
+    <value>درصد افزایش سرمایه از تجدید ارزیابی دارایی ها</value>
+  </data>
+  <data name="CapitalIncreaseFromCash" xml:space="preserve">
+    <value>درصد افزایش سرمایه آورده نقدی</value>
+  </data>
+  <data name="CapitalIncreaseFromShareholderReceivables" xml:space="preserve">
+    <value>درصد افزایش سرمایه مطالبات حاصل شده سهامداران</value>
+  </data>
+  <data name="CEO" xml:space="preserve">
+    <value>مدیرعامل</value>
+  </data>
+  <data name="CEOPhone" xml:space="preserve">
+    <value>تلفن مدیرعامل</value>
+  </data>
+  <data name="Children" xml:space="preserve">
+    <value>اعضای گروه</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>کد</value>
+  </data>
+  <data name="Colleague" xml:space="preserve">
+    <value>شرکت همکار</value>
+  </data>
+  <data name="CommercialCard" xml:space="preserve">
+    <value>کارت بازرگانی</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>نام شرکت</value>
+  </data>
+  <data name="CompanyActivityTypeTitle" xml:space="preserve">
+    <value>نوع فعالیت شرکت</value>
+  </data>
+  <data name="CompanyConfirm" xml:space="preserve">
+    <value>تایید شرکت</value>
+  </data>
+  <data name="CompanyId" xml:space="preserve">
+    <value>شرکت</value>
+  </data>
+  <data name="CompanyPartnershipTypeTitle" xml:space="preserve">
+    <value>نوع سهامی شرکت</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>شرکت</value>
+  </data>
+  <data name="CompanyType" xml:space="preserve">
+    <value>نوع کمپانی</value>
+  </data>
+  <data name="CompanyTypeId" xml:space="preserve">
+    <value>نوع کمپانی</value>
+  </data>
+  <data name="CompanyTypeTitle" xml:space="preserve">
+    <value>نوع شرکت</value>
+  </data>
+  <data name="CompletionDate" xml:space="preserve">
+    <value>تاریخ اتمام</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>تایید رمز عبور</value>
+  </data>
+  <data name="ContractId" xml:space="preserve">
+    <value>قرارداد</value>
+  </data>
+  <data name="ContractNo" xml:space="preserve">
+    <value>شماره قرارداد</value>
+  </data>
+  <data name="ContractState" xml:space="preserve">
+    <value>وضعیت قرارداد</value>
+  </data>
+  <data name="ContractSubject" xml:space="preserve">
+    <value>موضوع قرارداد</value>
+  </data>
+  <data name="ContractType" xml:space="preserve">
+    <value>نوع قرارداد</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>ایجاد</value>
+  </data>
+  <data name="CurrentCapital" xml:space="preserve">
+    <value>سرمایه فعلی (ریال)</value>
+  </data>
+  <data name="CurrentShares" xml:space="preserve">
+    <value>تعداد سهام جدید</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>تاریخ</value>
+  </data>
+  <data name="Decisions" xml:space="preserve">
+    <value>تصمیمات مجمع</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DevelopePercent" xml:space="preserve">
+    <value>درصد پیشرفت</value>
+  </data>
+  <data name="DividedProfit" xml:space="preserve">
+    <value>سود تقسیمی(ریال)</value>
+  </data>
+  <data name="DomainId" xml:space="preserve">
+    <value>نام دامین</value>
+  </data>
+  <data name="DomainIds" xml:space="preserve">
+    <value>نام دامین</value>
+  </data>
+  <data name="EconomicCode" xml:space="preserve">
+    <value>کد اقتصادی</value>
+  </data>
+  <data name="EducationDegreeTitle" xml:space="preserve">
+    <value>مدرک تحصیلی</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="EnactmentDetails" xml:space="preserve">
+    <value>متن مصوبه</value>
+  </data>
+  <data name="EnactmentTitle" xml:space="preserve">
+    <value>عنوان مصوبه</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>تاریخ پایان</value>
+  </data>
+  <data name="EntityName" xml:space="preserve">
+    <value>فرم ها</value>
+  </data>
+  <data name="EstablishmentDate" xml:space="preserve">
+    <value>تاریخ تاسیس</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>فکس</value>
+  </data>
+  <data name="FeedbackFound" xml:space="preserve">
+    <value>آخرین برآورد دوره برگشت سرمایه</value>
+  </data>
+  <data name="FeedbackRate" xml:space="preserve">
+    <value>نرخ بازده داخلی</value>
+  </data>
+  <data name="Field" xml:space="preserve">
+    <value>رشته</value>
+  </data>
+  <data name="Filed" xml:space="preserve">
+    <value>رشته</value>
+  </data>
+  <data name="FinancialManager" xml:space="preserve">
+    <value>مدیر مالی</value>
+  </data>
+  <data name="FinancialManagerPhone" xml:space="preserve">
+    <value>تلفن مدیر مالی</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>اتمام پروژه</value>
+  </data>
+  <data name="FirmCurrency" xml:space="preserve">
+    <value>آورده ارزی سازمان</value>
+  </data>
+  <data name="FirmRial" xml:space="preserve">
+    <value>آورده سازمان میلیون ریال</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="FiscalYearTitle" xml:space="preserve">
+    <value>سال مالی</value>
+  </data>
+  <data name="FormStatus" xml:space="preserve">
+    <value>وضعیت فرم</value>
+  </data>
+  <data name="FormStatusComments" xml:space="preserve">
+    <value>توضیحات</value>
+  </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>از تاریخ</value>
+  </data>
+  <data name="FundReturn" xml:space="preserve">
+    <value>دوره برگشت سرمایه</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>جنسیت</value>
+  </data>
+  <data name="GovermentCurrency" xml:space="preserve">
+    <value>کمک های ارزی دولتی</value>
+  </data>
+  <data name="GovermentRial" xml:space="preserve">
+    <value>کمک های دولتی میلیون ریال</value>
+  </data>
+  <data name="Holding" xml:space="preserve">
+    <value>هلدینگ</value>
+  </data>
+  <data name="HoldingConfirm" xml:space="preserve">
+    <value>تایید کمپانی</value>
+  </data>
+  <data name="HoldingCurrency" xml:space="preserve">
+    <value>آورده ارزی هلدینگ</value>
+  </data>
+  <data name="HoldingRial" xml:space="preserve">
+    <value>آورده هلدینگ میلیون ریال</value>
+  </data>
+  <data name="HoldingShares" xml:space="preserve">
+    <value>تعداد سهام هلدینگ در مجمع</value>
+  </data>
+  <data name="ImplemetationRate" xml:space="preserve">
+    <value>آخرین برآورد مدت اجرای طرح</value>
+  </data>
+  <data name="IncludeInFormula" xml:space="preserve">
+    <value>محاسبه در فرمول</value>
+  </data>
+  <data name="IndexData" xml:space="preserve">
+    <value>شاخص</value>
+  </data>
+  <data name="IndexDataId" xml:space="preserve">
+    <value>شاخص</value>
+  </data>
+  <data name="IndexDatas" xml:space="preserve">
+    <value>شاخص ها</value>
+  </data>
+  <data name="InnerFeedbackRate" xml:space="preserve">
+    <value>آخرین برآورد نرخ بازدهی داخلی</value>
+  </data>
+  <data name="InnerSourceCurrency" xml:space="preserve">
+    <value>منابع ارزی داخلی شرکت</value>
+  </data>
+  <data name="InnerSourceRial" xml:space="preserve">
+    <value>منابع داخلی شرکت میلیون ریال</value>
+  </data>
+  <data name="Insurance" xml:space="preserve">
+    <value>نام بیمه</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="IsMainShareholder" xml:space="preserve">
+    <value>سهامدار اصلی</value>
+  </data>
+  <data name="LastElectionMeetingDate" xml:space="preserve">
+    <value>آخرین مجمع انتخاب اعضای هیات مدیره</value>
+  </data>
+  <data name="LastEstimate" xml:space="preserve">
+    <value>تاریخ شروع آخرین برآورد</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>نام خانوادگی</value>
+  </data>
+  <data name="LegalMemberTypeTitle" xml:space="preserve">
+    <value>نوع عضو حقیقی</value>
+  </data>
+  <data name="ListOnly" xml:space="preserve">
+    <value>اطلاعات پایه</value>
+  </data>
+  <data name="MainGroupTitle" xml:space="preserve">
+    <value>گروه اصلی</value>
+  </data>
+  <data name="MeetingDate" xml:space="preserve">
+    <value>تاریخ جلسه</value>
+  </data>
+  <data name="MeetingSubject" xml:space="preserve">
+    <value>موضوع مجمع</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>موبایل</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>ماه</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="NationalCode" xml:space="preserve">
+    <value>کد ملی</value>
+  </data>
+  <data name="NationalID" xml:space="preserve">
+    <value>شناسه ملی</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>رمز جدید</value>
+  </data>
+  <data name="NewspaperEntryDate" xml:space="preserve">
+    <value>تاریخ ثبت در روزنامه رسمی</value>
+  </data>
+  <data name="NewspaperTitle" xml:space="preserve">
+    <value>روزنامه رسمی</value>
+  </data>
+  <data name="NumberOfCompanyBoardMembers" xml:space="preserve">
+    <value>تعداد اعضای هیات مدیره</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>رمز عبور قبلی</value>
+  </data>
+  <data name="OperationLicenseNumber" xml:space="preserve">
+    <value>شماره پروانه بهره برداری</value>
+  </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>تاریخ سفارش</value>
+  </data>
+  <data name="OrganizationalPositionTitle" xml:space="preserve">
+    <value>سِمت</value>
+  </data>
+  <data name="OrganizationConfirm" xml:space="preserve">
+    <value>تایید سازمان</value>
+  </data>
+  <data name="OwnershipPercentage" xml:space="preserve">
+    <value>درصد مالکیت</value>
+  </data>
+  <data name="ParentId" xml:space="preserve">
+    <value>زیر گروه</value>
+  </data>
+  <data name="ParentTitle" xml:space="preserve">
+    <value>گروه منو</value>
+  </data>
+  <data name="ParticipationCurrency" xml:space="preserve">
+    <value>مشارکت ارزی</value>
+  </data>
+  <data name="ParticipationRial" xml:space="preserve">
+    <value>مشارکت میلیون ریال</value>
+  </data>
+  <data name="ParValue" xml:space="preserve">
+    <value>ارزش اسمی هر سهم (ریال)</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>رمز عبور</value>
+  </data>
+  <data name="PaymentColleague" xml:space="preserve">
+    <value>پرداختی پیمانکار</value>
+  </data>
+  <data name="PaymentState" xml:space="preserve">
+    <value>صورت وضعیت پرداخت نشده</value>
+  </data>
+  <data name="PerformMonth" xml:space="preserve">
+    <value>مدت اجرای طرح-ماه</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>تلفن</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>تلفن</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>کدپستی</value>
+  </data>
+  <data name="PreviousCapital" xml:space="preserve">
+    <value>سرمایه قبلی (ریال)</value>
+  </data>
+  <data name="PreviousShares" xml:space="preserve">
+    <value>تعداد سهام قبلی</value>
+  </data>
+  <data name="PrimaryAuditorTitle" xml:space="preserve">
+    <value>حسابرس اصلی</value>
+  </data>
+  <data name="PrincipleId" xml:space="preserve">
+    <value>اصول موضوعه</value>
+  </data>
+  <data name="Principles" xml:space="preserve">
+    <value>اصول موضوعه</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>الویت</value>
+  </data>
+  <data name="ProjectDate" xml:space="preserve">
+    <value>تاریخ ثبت</value>
+  </data>
+  <data name="ProjectDetail" xml:space="preserve">
+    <value>جزء پروژه</value>
+  </data>
+  <data name="ProjectDetailId" xml:space="preserve">
+    <value>جزء پروژه</value>
+  </data>
+  <data name="ProjectId" xml:space="preserve">
+    <value>پروژه</value>
+  </data>
+  <data name="ProjectTargetId" xml:space="preserve">
+    <value>اهداف راهبردی</value>
+  </data>
+  <data name="ProjectTargets" xml:space="preserve">
+    <value>اهداف راهبردی</value>
+  </data>
+  <data name="ProjectType" xml:space="preserve">
+    <value>نوع طرح و پروژه</value>
+  </data>
+  <data name="ProjectTypeId" xml:space="preserve">
+    <value>نوع طرح و پروژه</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>رتبه</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>مشاهده</value>
+  </data>
+  <data name="RegisterAmount" xml:space="preserve">
+    <value>ثبت شده در اسناد مالی</value>
+  </data>
+  <data name="RegisterLocation" xml:space="preserve">
+    <value>محل ثبت</value>
+  </data>
+  <data name="RegisterNumber" xml:space="preserve">
+    <value>شماره ثبت</value>
+  </data>
+  <data name="RegistrationDate" xml:space="preserve">
+    <value>تاریخ ثبت</value>
+  </data>
+  <data name="RegistrationNumber" xml:space="preserve">
+    <value>شماره ثبت</value>
+  </data>
+  <data name="RegistrationUnit" xml:space="preserve">
+    <value>واحد ثبتی</value>
+  </data>
+  <data name="RemainDemands" xml:space="preserve">
+    <value>مابقی مطالبات</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>مرا به خاطر بسپار</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>بندگزارش حسابرس و بازرس قانونی</value>
+  </data>
+  <data name="ResignationDate" xml:space="preserve">
+    <value>تاریخ استعفا</value>
+  </data>
+  <data name="ResistancePolicies" xml:space="preserve">
+    <value>سیاست های مقاومتی</value>
+  </data>
+  <data name="ResistancePolicyId" xml:space="preserve">
+    <value>سیاست های مقاومتی</value>
+  </data>
+  <data name="RoleId" xml:space="preserve">
+    <value>نقش ها</value>
+  </data>
+  <data name="RoleType" xml:space="preserve">
+    <value>نقش</value>
+  </data>
+  <data name="RoleTypeId" xml:space="preserve">
+    <value>نقش</value>
+  </data>
+  <data name="SecondaryAuditorTitle" xml:space="preserve">
+    <value>حسابرس علی البدل</value>
+  </data>
+  <data name="ServiceCharge" xml:space="preserve">
+    <value>هزینه خدمات</value>
+  </data>
+  <data name="ShabaCode" xml:space="preserve">
+    <value>شماره شبا</value>
+  </data>
+  <data name="ShareholderHoldingCommunication" xml:space="preserve">
+    <value>ارتباط با هلدینگ توسط سهامدار</value>
+  </data>
+  <data name="ShareholderTitle" xml:space="preserve">
+    <value>سهامدار</value>
+  </data>
+  <data name="Shares" xml:space="preserve">
+    <value>تعداد سهم</value>
+  </data>
+  <data name="SocialResponsibility" xml:space="preserve">
+    <value>مسئولیت های اجتماعی(میلیون ریال)</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>تاریخ شروع</value>
+  </data>
+  <data name="StartEstimate" xml:space="preserve">
+    <value>تاریخ شروع برآورد اولیه</value>
+  </data>
+  <data name="StartEstimateUtilization" xml:space="preserve">
+    <value>تاریخ بهره برداری برآورد اولیه</value>
+  </data>
+  <data name="StartYear" xml:space="preserve">
+    <value>سال شروع اجرا</value>
+  </data>
+  <data name="StatusStatmentDate" xml:space="preserve">
+    <value>تاریخ صورت وضعیت</value>
+  </data>
+  <data name="SubGroupTitle" xml:space="preserve">
+    <value>گروه فرعی</value>
+  </data>
+  <data name="SubShareholderTitle" xml:space="preserve">
+    <value>سهامدار واسط</value>
+  </data>
+  <data name="SystemRoles" xml:space="preserve">
+    <value>نقش ها</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>ارزش افزوده</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>تا تاریخ</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>هزینه کل</value>
+  </data>
+  <data name="TotalProfit" xml:space="preserve">
+    <value>سود کل(میلیون ریال)</value>
+  </data>
+  <data name="TotalShares" xml:space="preserve">
+    <value>تعداد کل سهام</value>
+  </data>
+  <data name="TotlaBudget" xml:space="preserve">
+    <value>کل بودجه</value>
+  </data>
+  <data name="TreeViewData" xml:space="preserve">
+    <value>گروه</value>
+  </data>
+  <data name="TreeViewDataId" xml:space="preserve">
+    <value>گروه</value>
+  </data>
+  <data name="UnderManagementHoldingCommunication" xml:space="preserve">
+    <value>ارتباط با هلدینگ تحت مدیریت</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>کاربران</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>ثبت کننده</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>نام کاربری</value>
+  </data>
+  <data name="UtilizationDate" xml:space="preserve">
+    <value>تاریخ بهره برداری آخرین برآورد</value>
+  </data>
+  <data name="VerdictDate" xml:space="preserve">
+    <value>تاریخ حکم</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>سال</value>
+  </data>
+</root>

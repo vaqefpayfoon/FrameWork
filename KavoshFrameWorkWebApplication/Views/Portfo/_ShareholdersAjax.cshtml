@@ -1,0 +1,199 @@
+﻿@model PortfoViewModel
+@{
+    Layout = null;
+}
+<style>
+    .col-md-3 {
+        background-color: #e3e3e3;
+    }
+
+    .col-md-6, .col-md-8, .col-md-2 {
+        background-color: #f5f3f3;
+    }
+</style>
+
+<form asp-action="ShareholderPairs" asp-controller="Portfo" method="post">
+    @Html.HiddenFor(x => x.Id)
+    <div class="row">
+        <div class="col-sm-6">
+            <select id="sel1" name="sel1" class="not-sol form-control" style="width:450px">
+                <option></option>
+                @foreach (var item in Model.ValidShareholderTreeNodes.OrderBy(x => x.Value))
+                {
+                    <option value="@item.Key">@item.Value</option>
+                }
+            </select>
+        </div>
+        <div class="col-sm-3">
+               <label>گروه :</label>
+              <input type="number" id="group" value="1" />
+        </div>
+    </div>
+    
+    <p style="width:30px;padding:0 5px !important" class="text-center sub-total"></p>
+    <hr />
+    <button type="button" class="btn btn-success" onclick="savePortfo()">ذخیره</button>
+    <hr />
+    <div class="form-group">
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div id="mess" class="alert alert-success">
+                
+            </div>
+        }
+        <div id="portfoTable">
+
+        </div>
+    </div>
+    <div class="row">
+        <div id="portfoSum"></div>
+    </div>
+</form>
+
+
+<script>
+    $( document ).ready(function() {
+        let tag = {
+            "id": @Model.Id,
+            "enactmentId": 0
+        };
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            data: tag,
+            url: '/Portfo/getPortfo'
+        }).success(function (response) {
+            console.log(response)
+            const result = response;
+            $("#portfoTable").empty(); $("#portfoSum").empty();
+            $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].total + "</p></div></div><br/>");
+            var row = 1;
+            for (var k = 0; k < result.length; k++) {
+                var id = result[k].row;
+                var enactmentId = @Model.Id;
+                console.log(enactmentId);
+                var id = result[k].row;
+                var companyId = result[k].companyId;
+                var shareholderId = result[k].shareholderId;
+                var title = result[k].title;
+                var sum = result[k].sum;
+
+                $("#portfoTable").append("<div class='row'><div class='col-md-8'> گروه "+ id +"</div><div class='col-md-8'>" + title + "</div><div class='col-md-1'>" + sum + "</div></div><br/>");
+                row++;
+            }
+        }).error(function (req, status, error) {
+            console.log(error);
+        });
+    });
+
+    function deletePortfo(id) {
+        console.log(id);
+        let tag = {
+                    "id": id,
+                    "enactmentId": @Model.Id,
+                };
+        $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: tag,
+                    url: '/Portfo/deletePortfo'
+                }).success(function (response) {
+                    console.log(response)
+                    const result = response;
+                    $("#portfoTable").empty(); $("#portfoSum").empty();
+                    $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].total + "</p></div></div><br/>");
+                    var row = 1;
+                    for (var k = 0; k < result.length; k++) {
+                        var id = result[k].row;
+                        var enactmentId = @Model.Id;
+                        var companyId = result[k].companyId;
+                        var shareholderId = result[k].shareholderId;
+                        var title = result[k].title;
+                        var sum = result[k].sum;
+
+                        //$("#portfoTable").append("<div class='row'><div class='col-md-8'> گروه "+ id +"</div><div class='col-md-8'>" + title + "</div><div class='col-md-1'>" + sum + "</div><div class='col-md-1'><a class='btn btn-sm btn-danger' onclick='deletePortfo(" + id + ")'>حذف</a></div></div><br/>");
+                        $("#portfoTable").append("<div class='row'><div class='col-md-8'> گروه " + id + "</div><div class='col-md-8'>" + title + "</div><div class='col-md-1'>" + sum + "</div><br/>");
+                        row++;
+                    }                
+                }).error(function (req, status, error) {
+        });
+    }
+
+    function savePortfo() {
+        var sel1 = $('#sel1').val();
+        var group = $('#group').val();
+
+        let portfoValues = {
+            "id": @Model.Id,
+            "sel1": sel1,
+            "group": group,
+        };
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: portfoValues,
+            url: '/Portfo/savePortfo'
+        }).success(function (response) {
+            console.log(response)
+            const result = response;
+            if (result == "E")
+                $("#mess").html("خطا در ارتباط بین شرکت و سهام دار")
+            $("#portfoTable").empty(); $("#portfoSum").empty();
+            $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].total + "</p></div></div><br/>");
+            var row = 1;
+            for (var k = 0; k < result.length; k++) {
+                var id = result[k].row;
+                var enactmentId = @Model.Id;
+                var companyId = result[k].companyId;
+                var shareholderId = result[k].shareholderId;
+                var title = result[k].title;
+                var sum = result[k].sum;
+
+                $("#portfoTable").append("<div class='row'><div class='col-md-8'> گروه "+ id +"</div><div class='col-md-8'>" + title + "</div><div class='col-md-1'>" + sum + "</div></div><br/>");
+                row++;
+            }
+
+
+        }).error(function (req, status, error) {
+            console.log(error);
+        });
+    }
+        function deletePortfo2(id) {
+        
+        let tag = {
+                    "id": id,
+                    "enactmentId": @Model.Id,
+                };
+        $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: tag,
+                    url: '/Portfo/deletePortfo2'
+                }).success(function (response) {
+                    console.log(response)
+                    const result = response;
+                    $("#portfoTable").empty(); $("#portfoSum").empty();
+                    $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].total + "</p></div></div><br/>");
+                    var row = 1;
+                    for (var k = 0; k < result.length; k++) {
+                        var id = result[k].row;
+                        var enactmentId = @Model.Id;
+                        var companyId = result[k].companyId;
+                        var shareholderId = result[k].shareholderId;
+                        var title = result[k].title;
+                        var sum = result[k].sum;
+
+                        $("#portfoTable").append("<div class='row'><div class='col-md-8'> گروه "+ id +"</div><div class='col-md-8'>" + title + "</div><div class='col-md-1'>" + sum + "</div></div><br/>");
+                        row++;
+                    }                
+                }).error(function (req, status, error) {
+        });
+    }
+    $(document).ready(function () {
+        $('#sel1').select2();
+        
+    });
+    
+</script>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<AdminBreadCrumbViewModel>
+
+@{
+    Layout = null;
+}
+
+
+
+@*<kendo-breadcrumb name="breadcrumb"
+                          delimiter-icon="line"
+                          navigational="true"
+                          editable="false">
+            <kendo-breadcrumb-items>
+                <kendo-breadcrumb-item type="BreadcrumbItemType.RootItem" text="صفحه اصلی" href="/home" show-text="true" icon="home" show-icon="true">
+                </kendo-breadcrumb-item>
+               @foreach (var item in Model)
+                    {
+                        <kendo-breadcrumb-item type="BreadcrumbItemType.Item" text="@item.Title" href="@item.Url" ></kendo-breadcrumb-item>
+                    }
+            </kendo-breadcrumb-items>
+        </kendo-breadcrumb>
+    <script>
+
+        var breadcrumb = $("#breadcrumb").kendoBreadcrumb({
+
+            }).getKendoBreadcrumb();
+        breadcrumb.bind('click', function (e) {
+            console.log(e.sender);
+        });
+        </script>*@
+
+
+<div class="input-group">
+    <nav id="breadcrumb" name="breadcrumb" data-role="breadcrumb" class="k-widget k-breadcrumb" aria-label="Breadcrumb">
+
+        <div class="k-breadcrumb-input-container" style="display: none;">
+        </div>
+        <ol class="k-breadcrumb-container">
+            <li class="k-breadcrumb-item  k-breadcrumb-root-item ">
+                <a href="/home" class=" k-breadcrumb-root-link  k-breadcrumb-icontext-link" title="صفحه اصلی">
+                    <span class="k-icon k-i-home ">
+                    </span>صفحه اصلی
+                </a>
+                <span class="k-breadcrumb-delimiter-icon k-icon k-i-line" aria-hidden="true"></span>
+                <span class="k-breadcrumb-delimiter-icon k-hidden k-icon k-i-line" aria-hidden="true"></span>
+            </li>
+            <li class="k-breadcrumb-item">
+                @foreach (var item in Model)
+                {
+                    <a href="@item.Url" class="k-breadcrumb-link" title="@item.Title">@item.Title</a>
+                    <span class="k-breadcrumb-delimiter-icon k-icon k-i-line" aria-hidden="true"></span>
+                    <div class="k-breadcrumb-input-container" style="display: none;"></div>
+                }
+            </li>
+        </ol>
+    </nav>
+</div>
+
+
+
+
+
+
