@@ -57,6 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ExcelReader\ExcelReader.csproj" />
     <ProjectReference Include="..\KavoshFrameWorkCommon\KavoshFrameWorkCommon.csproj" />
     <ProjectReference Include="..\KavoshFrameWorkCore\KavoshFrameWorkCore.csproj" />
     <ProjectReference Include="..\KavoshFrameWorkData\KavoshFrameWorkData.csproj" />
@@ -66,6 +67,7 @@
     <Folder Include="Config\" />
     <Folder Include="Views\FileManagerData\" />
     <Folder Include="Views\Shared\Components\EmailProfile\" />
+    <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
   <ItemGroup>

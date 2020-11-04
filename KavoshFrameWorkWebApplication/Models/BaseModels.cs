@@ -1,6 +1,7 @@
 ﻿using KavoshFrameWorkCore.Models;
 using KavoshFrameWorkWebApplication.Resources;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace KavoshFrameWorkWebApplication.Models
@@ -67,5 +68,22 @@ namespace KavoshFrameWorkWebApplication.Models
         public int Year { get; set; }
         public string Month { get; set; }
     }
-
+    public class MartisViewModel
+    {
+        public MartisViewModel()
+        {
+            MatrisDetails = new List<MatrisDetailViewModel>();
+        }
+        public int FromRow { get; set; }
+        public int ToRow { get; set; }
+        public int FromColumn { get; set; }
+        public int ToColumn { get; set; }
+        public int SheetNo { get; set; }
+        public List<MatrisDetailViewModel> MatrisDetails { get; set; }
+    }
+    public class MatrisDetailViewModel
+    {
+        public string Text { get; set; }
+        public int RowNum { get; set; }
+    }
 }
