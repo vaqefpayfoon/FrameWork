@@ -30,7 +30,7 @@
         columns.Bound(m => m.Id)
         .ClientTemplate("#= renderNumber() #")
         .Title("ردیف").Sortable(false).Width(100);
-        columns.Bound(p => p.Title).Title("عنوان ");
+        columns.Bound(p => p.CompanyTitle).Title("عنوان ");
         if (User.IsInRole("Admin"))
         {
             columns.Bound(p => p.Id).ClientTemplate("<a href='./" + entity + "/Edit/#:Id#'><i class='k-icon k-i-edit'></i></a>&nbsp;&nbsp;&nbsp;<a onclick='return confirm(\"آیا از حذف این مورد اطمینان دارید؟\")' href='./" + entity + "/Delete/#:Id#'><i class='k-icon k-i-delete'></i></a>").HeaderHtmlAttributes(new { @class = "custom-action-button" }).Title("عملیات").Sortable(false);

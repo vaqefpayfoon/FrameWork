@@ -14,7 +14,7 @@
 
 <form asp-action="ShareholderPairs" asp-controller="Portfo" method="post">
     @Html.HiddenFor(x => x.Id)
-    <div class="row">
+    <div class="row col-12">
         <div class="col-sm-6">
             <select id="sel1" name="sel1" class="not-sol form-control" style="width:450px">
                 <option></option>
@@ -24,9 +24,11 @@
                 }
             </select>
         </div>
+    </div>
+    <div class="row">
         <div class="col-sm-3">
-               <label>گروه :</label>
-              <input type="number" id="group" value="1" />
+            <label>گروه :</label>
+            <input type="number" id="group" value="1" />
         </div>
     </div>
     
@@ -64,20 +66,20 @@
             data: tag,
             url: '/Portfo/getPortfo'
         }).success(function (response) {
-            console.log(response)
+
             const result = response;
+            console.log(response);
             $("#portfoTable").empty(); $("#portfoSum").empty();
-            $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].total + "</p></div></div><br/>");
+            $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].Total + "</p></div></div><br/>");
             var row = 1;
             for (var k = 0; k < result.length; k++) {
-                var id = result[k].row;
+                var id = result[k].Row;
                 var enactmentId = @Model.Id;
-                console.log(enactmentId);
-                var id = result[k].row;
-                var companyId = result[k].companyId;
-                var shareholderId = result[k].shareholderId;
-                var title = result[k].title;
-                var sum = result[k].sum;
+                var id = result[k].Row;
+                var companyId = result[k].CompanyId;
+                var shareholderId = result[k].ShareholderId;
+                var title = result[k].Title;
+                var sum = result[k].Sum;
 
                 $("#portfoTable").append("<div class='row'><div class='col-md-8'> گروه "+ id +"</div><div class='col-md-8'>" + title + "</div><div class='col-md-1'>" + sum + "</div></div><br/>");
                 row++;
@@ -88,7 +90,6 @@
     });
 
     function deletePortfo(id) {
-        console.log(id);
         let tag = {
                     "id": id,
                     "enactmentId": @Model.Id,
@@ -99,23 +100,23 @@
                     data: tag,
                     url: '/Portfo/deletePortfo'
                 }).success(function (response) {
-                    console.log(response)
+                    
                     const result = response;
                     $("#portfoTable").empty(); $("#portfoSum").empty();
-                    $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].total + "</p></div></div><br/>");
+                    $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].Total + "</p></div></div><br/>");
                     var row = 1;
                     for (var k = 0; k < result.length; k++) {
-                        var id = result[k].row;
+                        var id = result[k].Row;
                         var enactmentId = @Model.Id;
-                        var companyId = result[k].companyId;
-                        var shareholderId = result[k].shareholderId;
-                        var title = result[k].title;
-                        var sum = result[k].sum;
-
+                        var id = result[k].Row;
+                        var companyId = result[k].CompanyId;
+                        var shareholderId = result[k].ShareholderId;
+                        var title = result[k].Title;
+                        var sum = result[k].Sum;
                         //$("#portfoTable").append("<div class='row'><div class='col-md-8'> گروه "+ id +"</div><div class='col-md-8'>" + title + "</div><div class='col-md-1'>" + sum + "</div><div class='col-md-1'><a class='btn btn-sm btn-danger' onclick='deletePortfo(" + id + ")'>حذف</a></div></div><br/>");
                         $("#portfoTable").append("<div class='row'><div class='col-md-8'> گروه " + id + "</div><div class='col-md-8'>" + title + "</div><div class='col-md-1'>" + sum + "</div><br/>");
                         row++;
-                    }                
+                    }
                 }).error(function (req, status, error) {
         });
     }
@@ -136,20 +137,20 @@
             data: portfoValues,
             url: '/Portfo/savePortfo'
         }).success(function (response) {
-            console.log(response)
             const result = response;
             if (result == "E")
                 $("#mess").html("خطا در ارتباط بین شرکت و سهام دار")
             $("#portfoTable").empty(); $("#portfoSum").empty();
-            $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].total + "</p></div></div><br/>");
+            $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].Total + "</p></div></div><br/>");
             var row = 1;
             for (var k = 0; k < result.length; k++) {
-                var id = result[k].row;
+                var id = result[k].Row;
                 var enactmentId = @Model.Id;
-                var companyId = result[k].companyId;
-                var shareholderId = result[k].shareholderId;
-                var title = result[k].title;
-                var sum = result[k].sum;
+                var id = result[k].Row;
+                var companyId = result[k].CompanyId;
+                var shareholderId = result[k].ShareholderId;
+                var title = result[k].Title;
+                var sum = result[k].Sum;
 
                 $("#portfoTable").append("<div class='row'><div class='col-md-8'> گروه "+ id +"</div><div class='col-md-8'>" + title + "</div><div class='col-md-1'>" + sum + "</div></div><br/>");
                 row++;
@@ -161,7 +162,7 @@
         });
     }
         function deletePortfo2(id) {
-        
+
         let tag = {
                     "id": id,
                     "enactmentId": @Model.Id,
@@ -172,28 +173,26 @@
                     data: tag,
                     url: '/Portfo/deletePortfo2'
                 }).success(function (response) {
-                    console.log(response)
+
                     const result = response;
                     $("#portfoTable").empty(); $("#portfoSum").empty();
-                    $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].total + "</p></div></div><br/>");
+                    $("#portfoSum").append("<div class='row' style='padding-right:3%'><div class='col-md-3'><p> مجموع سهم ها   : " + result[result.length - 1].Total + "</p></div></div><br/>");
                     var row = 1;
                     for (var k = 0; k < result.length; k++) {
-                        var id = result[k].row;
+                        var id = result[k].Row;
                         var enactmentId = @Model.Id;
-                        var companyId = result[k].companyId;
-                        var shareholderId = result[k].shareholderId;
-                        var title = result[k].title;
-                        var sum = result[k].sum;
+                        var id = result[k].Row;
+                        var companyId = result[k].CompanyId;
+                        var shareholderId = result[k].ShareholderId;
+                        var title = result[k].Title;
+                        var sum = result[k].Sum;
 
                         $("#portfoTable").append("<div class='row'><div class='col-md-8'> گروه "+ id +"</div><div class='col-md-8'>" + title + "</div><div class='col-md-1'>" + sum + "</div></div><br/>");
                         row++;
-                    }                
+                    }
                 }).error(function (req, status, error) {
         });
     }
-    $(document).ready(function () {
-        $('#sel1').select2();
-        
-    });
-    
+
+
 </script>

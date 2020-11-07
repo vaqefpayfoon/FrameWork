@@ -100,7 +100,7 @@ namespace KavoshFrameWorkWebApplication.Controllers
 
             if (!HasAccess(model.CompanyId))
                 return View("Error");
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
                 model.Date = model.JalaliDate.ToDateTime().Value;
                 if (model.Date > DateTime.Now)
@@ -133,7 +133,7 @@ namespace KavoshFrameWorkWebApplication.Controllers
                 return View("Error");
 
             var model = _mapper.Map<CompanyMeetingAssignment, CompanyMeetingAssignmentViewModel>(item);
-
+            model.JalaliDate = model.Date.ToShamsi();
             return View(model);
         }
 
@@ -146,7 +146,7 @@ namespace KavoshFrameWorkWebApplication.Controllers
             if (!HasAccess(model.CompanyId))
                 return View("Error");
 
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
 
                 model.Date = model.JalaliDate.ToDateTime().Value;

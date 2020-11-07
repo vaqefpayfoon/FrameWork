@@ -1,0 +1,67 @@
+﻿@model BaseStatusViewModel
+@{
+    Layout = null;
+}
+
+<hr />
+@if (User.IsInRole("Admin"))
+{
+    <div class="form-group">
+        <label asp-for="FormStatus" class="col-sm-2 control-label"></label>
+        <div class="col-sm-5">
+            <select asp-for="FormStatus" asp-items="Html.GetEnumSelectList(typeof(FormStatus))" class="not-sol form-control"></select>
+            <span asp-validation-for="FormStatus"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FormStatusComments" class="col-sm-2 control-label"></label>
+        <div class="col-sm-5">
+            <textarea asp-for="FormStatusComments" rows="3" class="form-control"></textarea>
+            <span asp-validation-for="FormStatusComments"></span>
+        </div>
+    </div>
+
+}
+else
+{
+    <input type="hidden" asp-for="FormStatus" value="@(FormStatus.Pending)" />
+    <input type="hidden" asp-for="FormStatusComments" value="" />
+
+    <div class="well well-sm">
+        <div class="form-group">
+            <label asp-for="FormStatus" class="col-sm-2 control-label"></label>
+            <div class="col-sm-5">
+                <span>@(GeneralHelpers.DisplayName<FormStatus>(Model.FormStatus))</span>
+            </div>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.FormStatusComments))
+        {
+            <div class="form-group">
+                <label asp-for="FormStatusComments" class="col-sm-2 control-label"></label>
+                <div class="col-sm-5">
+                    <p>
+                        @Model.FormStatusComments
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+    if (Model.FormStatus == FormStatus.Verified)
+    {
+        <script>
+            $(function () {
+                setTimeout(disableFields,500);
+            })
+            function disableFields() {
+                $('button,input,textarea,select', $('.page-content')).each(function () { $(this).prop('disabled', 'disabled') });
+                $('.sol-inner-container').hide()
+
+            }
+        </script>
+    }
+}
+

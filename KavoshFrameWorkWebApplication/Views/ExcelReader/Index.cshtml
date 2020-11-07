@@ -1,0 +1,83 @@
+﻿@model MartisViewModel
+@{
+    ViewData["Title"] = "داشبورد";
+}
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager
+<style>
+    .btn-xs {
+        font-size: 11px;
+    }
+</style>
+<!-- Top Statistics -->
+<div class="content-wrapper">
+
+    <div class="content">
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <div class="card card-default" data-scroll-height="675">
+                    <div class="card-header">
+                        <h2>ماژول اکسل</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" asp-action="Index" enctype="multipart/form-data">
+                            <div class="form-group row col-12">
+                                <div class="col-6">
+                                    <label>از ردیف</label>
+                                    <input type="text" class="form-control" asp-for="FromRow" placeholder="از ردیف">
+                                </div>
+                                <div class="col-6">
+                                    <label>تا ردیف</label>
+                                    <input type="text" class="form-control" asp-for="ToRow" placeholder="تا ردیف">
+                                </div>
+                            </div>
+                            <div class="form-group row col-12">
+                                <div class="col-6">
+                                    <label>از ستون</label>
+                                    <input type="text" class="form-control" asp-for="FromColumn" placeholder="از ستون">
+                                </div>
+                                <div class="col-6">
+                                    <label>تا ستون</label>
+                                    <input type="text" class="form-control" asp-for="ToColumn" placeholder="تا ستون">
+                                </div>
+                            </div>
+                            <div class="form-group row col-12">
+                                <div class="col-6">
+                                    <label>شماره شیت</label>
+                                    <input type="text" class="form-control" asp-for="SheetNo" placeholder="شماره شیت">
+                                </div>
+                                <div class="col-6">
+                                    <label>انتخاب فایل</label>
+                                    <input type="file" name="files" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <input type="submit" class="btn btn-info form-control" value="تایید" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                @if (Model.MatrisDetails.Count() > 0)
+                                {
+                                    <table class="table table-dark">
+                                        @foreach (var item in Model.MatrisDetails.GroupBy(woak => woak.RowNum))
+                                        {
+                                            <tr>
+                                                @foreach (var woak in item)
+                                                {
+                                                    <td>
+                                                        @woak.Text
+                                                    </td>
+                                                }
+                                            </tr>
+                                        }
+                                    </table>
+                                }
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

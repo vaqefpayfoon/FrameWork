@@ -29,7 +29,18 @@
                     <input type="hidden" name="SaveAndReturn" />
                     <input type="hidden" asp-for="Id" name="SaveAndReturn" />
                     <div asp-validation-summary="ModelOnly"></div>
-
+                    <div class="form-group  row" id="btn-row-opertion">
+                        <div class="circle">
+                            <a href="@Url.Action("Index", "CompanyMeetingAssignment")" class="submit-with-icon">
+                                <span class="mdi mdi-close"></span>
+                            </a>
+                        </div>
+                        <div class="circle">
+                            <button type="submit" class="submit-with-icon">
+                                <span class="mdi mdi-content-save"></span>
+                            </button>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label asp-for="CompanyId" class="col-sm-1 control-label"></label>
                         <div class="col-sm-5">

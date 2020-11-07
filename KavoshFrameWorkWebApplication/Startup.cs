@@ -59,7 +59,12 @@ namespace KavoshFrameWorkWebApplication
 
             services
                 .AddMvc()
-                .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+                .AddNewtonsoftJson(options => { 
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        });
+
 
             services.AddDNTCaptcha(options => options.UseCookieStorageProvider());
 
